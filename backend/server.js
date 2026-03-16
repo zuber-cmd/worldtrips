@@ -3,33 +3,17 @@ const express   = require('express');
 const cors      = require('cors');
 const helmet    = require('helmet');
 const rateLimit = require('express-rate-limit');
-const { Pool }  = require('pg');
+const { pool, checkConnection } = require('./config/db');
 
-// ── Database ──────────────────────────────────────────────────
-const db = new Pool({
-  host:     process.env.DB_HOST     || 'localhost',
-  port:     parseInt(process.env.DB_PORT || '5432'),
-  database: process.env.DB_NAME     || 'worldtrips',
-  user:     process.env.DB_USER     || 'postgres',
-  password: process.env.DB_PASSWORD || '',
-  max: 10,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 5000,
-});
-
-db.connect()
-  .then(c => { console.log('✅ PostgreSQL connected'); c.release(); })
-  .catch(e => {
-    console.error('❌ PostgreSQL connection failed:', e.message);
-    console.error('   Check your .env DB_PASSWORD setting');
-  });
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const isProd   = NODE_ENV === 'production';
 
 // ── App ───────────────────────────────────────────────────────
 const app = express();
 
 app.use(helmet({ contentSecurityPolicy: false }));
 
-// ── CORS: allow localhost + any device on your local network ──
+// ── CORS: allow localhost + configured frontend ───────────────
 app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (mobile apps, curl, Postman)
@@ -54,8 +38,15 @@ app.use(cors({
       return callback(null, true);
     }
 
-    console.warn('⚠️  CORS blocked origin:', origin);
-    return callback(null, true); // permissive during dev — change to false in production
+    console.warn('CORS blocked origin:', origin);
+
+    // In development, be permissive to reduce friction
+    if (!isProd) {
+      return callback(null, true);
+    }
+
+    // In production, block disallowed origins
+    return callback(new Error('Not allowed by CORS'), false);
   },
   credentials: true,
   methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
@@ -73,7 +64,7 @@ app.use('/api/auth', authLimiter);
 app.use('/api', apiLimiter);
 
 // Attach db to every request
-app.use((req, _res, next) => { req.db = db; next(); });
+app.use((req, _res, next) => { req.db = pool; next(); });
 
 // ── Routes ────────────────────────────────────────────────────
 app.use('/api/auth',         require('./routes/auth'));
@@ -83,7 +74,17 @@ app.use('/api/bookings',     require('./routes/bookings'));
 app.use('/api/chat',         require('./routes/chat'));
 app.use('/api/admin',        require('./routes/admin'));
 
-app.get('/api/health', (_req, res) => res.json({ ok: true, time: new Date() }));
+// Health check including DB status
+app.get('/api/health', async (_req, res) => {
+  const time = new Date();
+  try {
+    await pool.query('SELECT 1');
+    return res.json({ ok: true, db: true, time });
+  } catch (e) {
+    console.error('Healthcheck DB error:', e.message);
+    return res.status(503).json({ ok: false, db: false, time });
+  }
+});
 
 // 404
 app.use((_req, res) => res.status(404).json({ success: false, message: 'Not found' }));
@@ -94,11 +95,22 @@ app.use((err, _req, res, _next) => {
   res.status(err.status || 500).json({ success: false, message: err.message || 'Server error' });
 });
 
-// ── Listen on ALL interfaces so phone can reach it ────────────
+// ── Startup: ensure DB is reachable then listen ───────────────
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`\n🚀 WorldTrips API running`);
-  console.log(`   Local:   http://localhost:${PORT}`);
-  console.log(`   Network: http://10.14.0.193:${PORT}`);
-  console.log(`   Environment: ${process.env.NODE_ENV || 'development'}\n`);
-});
+
+(async () => {
+  try {
+    await checkConnection();
+    console.log('✅ PostgreSQL connected');
+
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`\n🚀 WorldTrips API running`);
+      console.log(`   Local:   http://localhost:${PORT}`);
+      console.log(`   Environment: ${NODE_ENV}\n`);
+    });
+  } catch (e) {
+    console.error('❌ PostgreSQL connection failed:', e.message);
+    console.error('   Check your .env DB_* settings');
+    process.exit(1);
+  }
+})();

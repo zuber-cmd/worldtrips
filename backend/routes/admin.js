@@ -78,6 +78,9 @@ router.post('/users', requireAdmin, async (req, res) => {
     if (!full_name || !email || !password) {
       return res.status(400).json({ success: false, message: 'Name, email and password required.' });
     }
+    if (password.length < 8) {
+      return res.status(400).json({ success: false, message: 'Password must be at least 8 characters.' });
+    }
     const exists = await req.db.query('SELECT id FROM users WHERE email = $1', [email.toLowerCase()]);
     if (exists.rows.length) {
       return res.status(409).json({ success: false, message: 'Email already in use.' });
@@ -100,7 +103,10 @@ router.patch('/users/:id/status', requireAdmin, async (req, res) => {
     if (req.params.id === req.user.id) {
       return res.status(400).json({ success: false, message: 'Cannot change your own status.' });
     }
-    await req.db.query('UPDATE users SET is_active = $1, updated_at = NOW() WHERE id = $2', [is_active, req.params.id]);
+    const result = await req.db.query('UPDATE users SET is_active = $1, updated_at = NOW() WHERE id = $2 RETURNING id', [is_active, req.params.id]);
+    if (!result.rows.length) {
+      return res.status(404).json({ success: false, message: 'User not found.' });
+    }
     res.json({ success: true, message: `User ${is_active ? 'activated' : 'deactivated'}.` });
   } catch {
     res.status(500).json({ success: false, message: 'Update failed.' });
@@ -117,7 +123,10 @@ router.patch('/users/:id/role', requireAdmin, async (req, res) => {
     if (req.params.id === req.user.id) {
       return res.status(400).json({ success: false, message: 'Cannot change your own role.' });
     }
-    await req.db.query('UPDATE users SET role = $1, updated_at = NOW() WHERE id = $2', [role, req.params.id]);
+    const result = await req.db.query('UPDATE users SET role = $1, updated_at = NOW() WHERE id = $2 RETURNING id', [role, req.params.id]);
+    if (!result.rows.length) {
+      return res.status(404).json({ success: false, message: 'User not found.' });
+    }
     res.json({ success: true, message: `Role updated to ${role}.` });
   } catch {
     res.status(500).json({ success: false, message: 'Update failed.' });
@@ -130,7 +139,10 @@ router.delete('/users/:id', requireAdmin, async (req, res) => {
     if (req.params.id === req.user.id) {
       return res.status(400).json({ success: false, message: 'Cannot delete yourself.' });
     }
-    await req.db.query('DELETE FROM users WHERE id = $1', [req.params.id]);
+    const result = await req.db.query('DELETE FROM users WHERE id = $1 RETURNING id', [req.params.id]);
+    if (!result.rows.length) {
+      return res.status(404).json({ success: false, message: 'User not found.' });
+    }
     res.json({ success: true, message: 'User deleted.' });
   } catch {
     res.status(500).json({ success: false, message: 'Delete failed.' });

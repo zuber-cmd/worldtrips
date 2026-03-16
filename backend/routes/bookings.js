@@ -10,8 +10,16 @@ function makeRef() {
 router.get('/', requireAuth, async (req, res) => {
   try {
     const isAdmin = req.user.role === 'admin';
-    const { status, search, page = 1, limit = 20 } = req.query;
-    const offset = (parseInt(page) - 1) * parseInt(limit);
+    const { status, search } = req.query;
+
+    const page = parseInt(req.query.page || '1', 10);
+    const limit = parseInt(req.query.limit || '20', 10);
+
+    if (Number.isNaN(page) || page <= 0 || Number.isNaN(limit) || limit <= 0 || limit > 100) {
+      return res.status(400).json({ success: false, message: 'Invalid pagination parameters.' });
+    }
+
+    const offset = (page - 1) * limit;
 
     const params = [];
     let where = isAdmin ? 'WHERE 1=1' : 'WHERE b.user_id = $1';
@@ -27,7 +35,7 @@ router.get('/', requireAuth, async (req, res) => {
     }
 
     const countParams = [...params];
-    params.push(parseInt(limit), offset);
+    params.push(limit, offset);
 
     const rows = await req.db.query(`
       SELECT b.*,
@@ -102,6 +110,11 @@ router.post('/', requireAuth, async (req, res) => {
       return res.status(400).json({ success: false, message: 'Missing required fields.' });
     }
 
+    const guestsInt = parseInt(guests, 10);
+    if (Number.isNaN(guestsInt) || guestsInt <= 0) {
+      return res.status(400).json({ success: false, message: 'guests must be a positive integer.' });
+    }
+
     const ci = new Date(check_in);
     const co = new Date(check_out);
     if (co <= ci) return res.status(400).json({ success: false, message: 'Check-out must be after check-in.' });
@@ -109,18 +122,39 @@ router.post('/', requireAuth, async (req, res) => {
     const nights = Math.max(1, Math.ceil((co - ci) / 86400000));
     let hotelCost = 0;
 
+    // Ensure destination exists
+    const destCheck = await req.db.query('SELECT id FROM destinations WHERE id = $1 AND is_active = TRUE', [destination_id]);
+    if (!destCheck.rows.length) {
+      return res.status(400).json({ success: false, message: 'Invalid destination.' });
+    }
+
     if (hotel_id) {
-      const hr = await req.db.query('SELECT price_per_night FROM hotels WHERE id = $1', [hotel_id]);
-      if (hr.rows.length) hotelCost = hr.rows[0].price_per_night * nights * parseInt(guests);
+      const hr = await req.db.query('SELECT price_per_night, destination_id FROM hotels WHERE id = $1 AND is_active = TRUE', [hotel_id]);
+      if (!hr.rows.length || hr.rows[0].destination_id !== destination_id) {
+        return res.status(400).json({ success: false, message: 'Invalid hotel for this destination.' });
+      }
+      hotelCost = hr.rows[0].price_per_night * nights * guestsInt;
     }
 
     let actCost = 0;
     const actPrices = {};
-    if (activity_ids.length > 0) {
-      const ar = await req.db.query('SELECT id, price FROM activities WHERE id = ANY($1)', [activity_ids]);
+    if (Array.isArray(activity_ids) && activity_ids.length > 0) {
+      const ar = await req.db.query('SELECT id, price, destination_id FROM activities WHERE id = ANY($1) AND is_active = TRUE', [activity_ids]);
+
+      // Ensure all requested activities belong to this destination
+      const foundIds = new Set(ar.rows.map(a => a.id));
+      for (const aid of activity_ids) {
+        if (!foundIds.has(aid)) {
+          return res.status(400).json({ success: false, message: 'One or more activities are invalid for this destination.' });
+        }
+      }
+
       ar.rows.forEach(a => {
+        if (a.destination_id !== destination_id) {
+          return;
+        }
         actPrices[a.id] = a.price;
-        actCost += a.price * parseInt(guests);
+        actCost += a.price * guestsInt;
       });
     }
 

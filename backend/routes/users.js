@@ -23,6 +23,9 @@ router.patch('/profile', requireAuth, async (req, res) => {
       'UPDATE users SET full_name = COALESCE($1, full_name), phone = COALESCE($2, phone), updated_at = NOW() WHERE id = $3 RETURNING id, full_name, email, phone, role',
       [full_name || null, phone || null, req.user.id]
     );
+    if (!r.rows.length) {
+      return res.status(404).json({ success: false, message: 'User not found.' });
+    }
     res.json({ success: true, user: r.rows[0], message: 'Profile updated.' });
   } catch {
     res.status(500).json({ success: false, message: 'Update failed.' });
@@ -39,6 +42,9 @@ router.patch('/password', requireAuth, async (req, res) => {
       return res.status(400).json({ success: false, message: 'New password must be 8+ characters.' });
     }
     const r = await req.db.query('SELECT password_hash FROM users WHERE id = $1', [req.user.id]);
+    if (!r.rows.length) {
+      return res.status(404).json({ success: false, message: 'User not found.' });
+    }
     const ok = await bcrypt.compare(current_password, r.rows[0].password_hash);
     if (!ok) return res.status(401).json({ success: false, message: 'Current password is incorrect.' });
     const hash = await bcrypt.hash(new_password, 12);

@@ -79,10 +79,22 @@ router.post('/', requireAdmin, async (req, res) => {
     if (!name || !country || !region || !category || !base_price) {
       return res.status(400).json({ success: false, message: 'Name, country, region, category and price are required.' });
     }
+    const price = parseInt(base_price, 10);
+    if (Number.isNaN(price) || price <= 0) {
+      return res.status(400).json({ success: false, message: 'base_price must be a positive number.' });
+    }
+
+    let normalizedHighlights = null;
+    if (Array.isArray(highlights)) {
+      normalizedHighlights = highlights;
+    } else if (typeof highlights === 'string' && highlights.trim() !== '') {
+      normalizedHighlights = highlights.split(',').map(h => h.trim()).filter(Boolean);
+    }
+
     const r = await req.db.query(
       `INSERT INTO destinations (name, country, region, category, emoji, base_price, description, highlights, fallback_color, image_path)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *`,
-      [name, country, region, category, emoji || '🌍', parseInt(base_price), description || null, highlights || null, fallback_color || '#4a6fa5', image_path || null]
+      [name, country, region, category, emoji || '*', price, description || null, normalizedHighlights, fallback_color || '#4a6fa5', image_path || null]
     );
     res.status(201).json({ success: true, destination: r.rows[0] });
   } catch (e) {
@@ -95,11 +107,24 @@ router.post('/', requireAdmin, async (req, res) => {
 router.put('/:id', requireAdmin, async (req, res) => {
   try {
     const { name, country, region, category, emoji, base_price, description, highlights, fallback_color, image_path } = req.body;
+
+    const price = base_price !== undefined ? parseInt(base_price, 10) : null;
+    if (price !== null && (Number.isNaN(price) || price <= 0)) {
+      return res.status(400).json({ success: false, message: 'base_price must be a positive number when provided.' });
+    }
+
+    let normalizedHighlights = null;
+    if (Array.isArray(highlights)) {
+      normalizedHighlights = highlights;
+    } else if (typeof highlights === 'string' && highlights.trim() !== '') {
+      normalizedHighlights = highlights.split(',').map(h => h.trim()).filter(Boolean);
+    }
+
     const r = await req.db.query(
       `UPDATE destinations SET name=$1, country=$2, region=$3, category=$4, emoji=$5,
        base_price=$6, description=$7, highlights=$8, fallback_color=$9, image_path=$10
        WHERE id=$11 RETURNING *`,
-      [name, country, region, category, emoji, parseInt(base_price), description, highlights, fallback_color, image_path, req.params.id]
+      [name, country, region, category, emoji, price, description, normalizedHighlights, fallback_color, image_path, req.params.id]
     );
     if (!r.rows.length) return res.status(404).json({ success: false, message: 'Not found.' });
     res.json({ success: true, destination: r.rows[0] });

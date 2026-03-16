@@ -292,7 +292,9 @@ router.post('/', requireAuth, async (req, res) => {
     const last = messages[messages.length - 1];
     const userText = typeof last.content === 'string' ? last.content : String(last.content || '');
 
-    console.log(`[chat] user ${req.user?.id}: "${userText.slice(0,80)}"`);
+    if (process.env.NODE_ENV !== 'production') {
+      console.log(`[chat] user ${req.user?.id}: "${userText.slice(0,80)}"`);
+    }
 
     const reply = generateReply(userText);
     return res.json({ success: true, reply });
