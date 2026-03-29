@@ -1,5 +1,6 @@
-// Dev: Vite proxies /api → backend. Prod (Vercel): set VITE_API_URL to your Render API origin (no trailing slash).
-const API_ORIGIN = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
+// Dev: Vite proxies /api → backend. Prod: VITE_API_URL = Render host only, e.g. https://xxx.onrender.com (no /api).
+let API_ORIGIN = (import.meta.env.VITE_API_URL || '').trim().replace(/\/$/, '');
+if (API_ORIGIN.endsWith('/api')) API_ORIGIN = API_ORIGIN.slice(0, -4).replace(/\/$/, '');
 const BASE = API_ORIGIN ? `${API_ORIGIN}/api` : '/api';
 
 async function request(path, options = {}) {

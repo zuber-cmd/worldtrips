@@ -73,6 +73,15 @@ app.use('/api', apiLimiter);
 // Attach db to every request
 app.use((req, _res, next) => { req.db = pool; next(); });
 
+// Root — avoids confusing 404 when opening the service URL in a browser
+app.get('/', (_req, res) => {
+  res.json({
+    service: 'WorldTrips API',
+    health: '/api/health',
+    docs: 'Routes are under /api/* (e.g. POST /api/auth/login, GET /api/destinations).',
+  });
+});
+
 // ── Routes ────────────────────────────────────────────────────
 app.use('/api/auth',         require('./routes/auth'));
 app.use('/api/users',        require('./routes/users'));
