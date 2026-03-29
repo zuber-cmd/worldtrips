@@ -1,0 +1,33 @@
+# Blueprint: https://render.com/docs/blueprint-spec
+# Repo root should be the folder containing this file (worldtrips/). Set secrets in the Render dashboard:
+# FRONTEND_URL, FRONTEND_URLS (optional), JWT_SECRET — or add them below with sync: false.
+
+databases:
+  - name: worldtrips-db
+    plan: free
+    databaseName: worldtrips
+    user: worldtrips
+
+services:
+  - type: web
+    name: worldtrips-api
+    runtime: node
+    plan: free
+    region: oregon
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: worldtrips-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_URL
+        sync: false
+      - key: FRONTEND_URLS
+        sync: false

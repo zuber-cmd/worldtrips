@@ -1,4 +1,6 @@
-const BASE = '/api';
+// Dev: Vite proxies /api → backend. Prod (Vercel): set VITE_API_URL to your Render API origin (no trailing slash).
+const API_ORIGIN = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
+const BASE = API_ORIGIN ? `${API_ORIGIN}/api` : '/api';
 
 async function request(path, options = {}) {
   const token = localStorage.getItem('wt_access');

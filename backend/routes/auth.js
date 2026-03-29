@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt  = require('bcrypt');
 const jwt     = require('jsonwebtoken');
-const { requireAuth, signTokens, SECRET } = require('../middleware/auth');
+const { requireAuth, signTokens, getJwtSecret } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -96,7 +96,7 @@ router.post('/refresh', async (req, res) => {
       return res.status(400).json({ success: false, message: 'Refresh token required.' });
     }
 
-    const decoded = jwt.verify(refreshToken, SECRET);
+    const decoded = jwt.verify(refreshToken, getJwtSecret());
     const session = await req.db.query(
       'SELECT id FROM sessions WHERE refresh_token = $1 AND expires_at > NOW()',
       [refreshToken]

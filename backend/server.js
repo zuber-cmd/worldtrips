@@ -11,6 +11,10 @@ const isProd   = NODE_ENV === 'production';
 // ── App ───────────────────────────────────────────────────────
 const app = express();
 
+if (isProd) {
+  app.set('trust proxy', 1);
+}
+
 app.use(helmet({ contentSecurityPolicy: false }));
 
 // ── CORS: allow localhost + configured frontend ───────────────
@@ -33,8 +37,11 @@ app.use(cors({
       return callback(null, true);
     }
 
-    // Also allow whatever is set in .env
-    if (origin === process.env.FRONTEND_URL) {
+    const extraOrigins = (process.env.FRONTEND_URLS || '')
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean);
+    if (origin === process.env.FRONTEND_URL || extraOrigins.includes(origin)) {
       return callback(null, true);
     }
 
