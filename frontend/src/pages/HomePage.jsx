@@ -450,9 +450,9 @@ export default function Dashboard() {
           </div>
           <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(180px,1fr))', gap:12 }}>
             {dests.slice(0,6).map((d,i) => (
-              <div key={d.id} onClick={() => nav('/book', { state:{ dest:d } })} style={{ borderRadius:12, overflow:'hidden', cursor:'pointer', border:'1px solid rgba(255,255,255,.06)', transition:'all .3s', position:'relative' }}
-                onMouseEnter={e => { e.currentTarget.style.transform='translateY(-5px)'; e.currentTarget.style.borderColor='rgba(13,148,136,.3)'; e.currentTarget.style.boxShadow='0 15px 35px rgba(0,0,0,.4)'; }}
-                onMouseLeave={e => { e.currentTarget.style.transform='translateY(0)'; e.currentTarget.style.borderColor='rgba(255,255,255,.06)'; e.currentTarget.style.boxShadow='none'; }}>
+              <div key={d.id} onClick={() => nav('/book', { state:{ dest:d } })} style={{ borderRadius:12, overflow:'hidden', cursor:'pointer', border:'1px solid rgba(124,58,237,.12)', transition:'all .3s', position:'relative' }}
+                onMouseEnter={e => { e.currentTarget.style.transform='translateY(-5px)'; e.currentTarget.style.borderColor='rgba(13,148,136,.3)'; e.currentTarget.style.boxShadow='0 15px 35px rgba(0,0,0,.12)'; }}
+                onMouseLeave={e => { e.currentTarget.style.transform='translateY(0)'; e.currentTarget.style.borderColor='rgba(124,58,237,.12)'; e.currentTarget.style.boxShadow='none'; }}>
                 <div style={{ height:110, position:'relative', overflow:'hidden' }}>
                   <DestImg dest={d}/>
                   <div style={{ position:'absolute', inset:0, background:'linear-gradient(to top, rgba(10,15,30,.95) 0%, rgba(10,15,30,.1) 50%, transparent 100%)' }}/>

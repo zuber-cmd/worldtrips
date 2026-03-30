@@ -26,7 +26,7 @@ export default function Navbar() {
     <>
       <nav style={{
         position:'fixed', top:0, left:0, right:0, zIndex:200,
-        height:64, background:'rgba(6,4,26,.95)', backdropFilter:'blur(24px)',
+        height:64, background:'rgba(255,255,255,.85)', backdropFilter:'blur(24px)',
         borderBottom:'1px solid rgba(124,58,237,.12)',
         display:'flex', alignItems:'center', padding:'0 20px', gap:10,
       }}>
@@ -79,7 +79,7 @@ export default function Navbar() {
             </button>
 
             {userOpen && (
-              <div style={{ position:'absolute', top:'115%', right:0, background:'#0c0a2e', border:'1px solid rgba(124,58,237,.25)', borderRadius:12, minWidth:190, padding:'8px 0', boxShadow:'0 20px 60px rgba(0,0,0,.7)', zIndex:300 }}>
+              <div style={{ position:'absolute', top:'115%', right:0, background:'var(--bg2)', border:'1px solid rgba(124,58,237,.25)', borderRadius:12, minWidth:190, padding:'8px 0', boxShadow:'0 20px 60px rgba(0,0,0,.12)', zIndex:300 }}>
                 <div style={{ padding:'10px 16px 12px', borderBottom:'1px solid rgba(124,58,237,.1)', marginBottom:4 }}>
                   <div style={{ fontWeight:600, fontSize:13 }}>{user?.full_name}</div>
                   <div style={{ fontSize:11, color:'var(--muted)', marginTop:2 }}>{user?.email}</div>
@@ -109,7 +109,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="show-sm" style={{ position:'fixed', top:64, left:0, right:0, zIndex:199, background:'rgba(6,4,26,.98)', borderBottom:'1px solid rgba(124,58,237,.12)', padding:'8px 0', backdropFilter:'blur(20px)' }}>
+        <div className="show-sm" style={{ position:'fixed', top:64, left:0, right:0, zIndex:199, background:'rgba(255,255,255,.95)', borderBottom:'1px solid rgba(124,58,237,.12)', padding:'8px 0', backdropFilter:'blur(20px)' }}>
           {links.map(l => (
             <Link key={l.to} to={l.to} onClick={() => setMenuOpen(false)} style={{
               display:'flex', alignItems:'center', gap:12, padding:'13px 22px', fontSize:15, textDecoration:'none',

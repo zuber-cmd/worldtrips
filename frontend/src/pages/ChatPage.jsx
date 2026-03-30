@@ -82,7 +82,7 @@ export default function ChatPage() {
                 borderRadius: m.role==='user' ? '18px 18px 4px 18px' : '4px 18px 18px 18px',
                 background: m.role==='user'
                   ? 'linear-gradient(135deg,rgba(124,58,237,.25),rgba(109,40,217,.15))'
-                  : 'rgba(13,10,46,.9)',
+                  : 'rgba(255,255,255,.88)',
                 border: m.role==='user'
                   ? '1px solid rgba(124,58,237,.35)'
                   : '1px solid rgba(124,58,237,.1)',
@@ -102,7 +102,7 @@ export default function ChatPage() {
               <div style={{ width:32, height:32, borderRadius:10, background:'linear-gradient(135deg,rgba(124,58,237,.3),rgba(6,182,212,.2))', border:'1px solid rgba(124,58,237,.3)', display:'flex', alignItems:'center', justifyContent:'center' }}>
                 <Bot size={15} color="#a78bfa"/>
               </div>
-              <div style={{ padding:'14px 18px', background:'rgba(13,10,46,.9)', borderRadius:'4px 18px 18px 18px', border:'1px solid rgba(124,58,237,.1)', display:'flex', gap:6, alignItems:'center' }}>
+              <div style={{ padding:'14px 18px', background:'rgba(255,255,255,.88)', borderRadius:'4px 18px 18px 18px', border:'1px solid rgba(124,58,237,.1)', display:'flex', gap:6, alignItems:'center' }}>
                 {[0,1,2].map(j => <div key={j} style={{ width:8, height:8, borderRadius:'50%', background:'#7c3aed', animation:`pulse ${1.1+j*.2}s ease-in-out infinite`, animationDelay:j*.15+'s', opacity:.7 }}/>)}
               </div>
             </div>
@@ -125,7 +125,7 @@ export default function ChatPage() {
 
         {/* Input */}
         <div style={{ padding:'10px 0 18px', flexShrink:0 }}>
-          <div style={{ display:'flex', gap:8, background:'rgba(13,10,46,.95)', border:'1px solid rgba(124,58,237,.25)', borderRadius:14, padding:'8px 8px 8px 16px', alignItems:'flex-end', boxShadow:'0 4px 20px rgba(0,0,0,.3)', transition:'border-color .2s' }}
+          <div style={{ display:'flex', gap:8, background:'rgba(255,255,255,.9)', border:'1px solid rgba(124,58,237,.25)', borderRadius:14, padding:'8px 8px 8px 16px', alignItems:'flex-end', boxShadow:'0 4px 20px rgba(0,0,0,.08)', transition:'border-color .2s' }}
             onFocusCapture={e => e.currentTarget.style.borderColor='rgba(124,58,237,.5)'}
             onBlurCapture={e => e.currentTarget.style.borderColor='rgba(124,58,237,.25)'}>
             <textarea ref={inputRef} value={input} onChange={e => setInput(e.target.value)}

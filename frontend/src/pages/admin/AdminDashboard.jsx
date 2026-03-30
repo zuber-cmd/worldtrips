@@ -145,7 +145,7 @@ function OverviewTab() {
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(124,58,237,.08)"/>
             <XAxis dataKey="month" stroke="var(--muted)" fontSize={11}/>
             <YAxis stroke="var(--muted)" fontSize={10} tickFormatter={v=>`${(v/1000000).toFixed(1)}M`}/>
-            <Tooltip contentStyle={{ background:'#0c0a2e', border:'1px solid rgba(124,58,237,.3)', borderRadius:10, color:'var(--text)', fontSize:12 }} formatter={v=>kes(v)}/>
+            <Tooltip contentStyle={{ background:'var(--bg2)', border:'1px solid rgba(124,58,237,.25)', borderRadius:10, color:'var(--text)', fontSize:12 }} formatter={v=>kes(v)}/>
             <Area type="monotone" dataKey="revenue" stroke="#7c3aed" strokeWidth={2.5} fill="url(#rg)"/>
           </AreaChart>
         </ResponsiveContainer>
@@ -232,7 +232,7 @@ function BookingsTab() {
       </div>
 
       <div style={{ display:'flex', gap:10, marginBottom:16, flexWrap:'wrap', alignItems:'center' }}>
-        <div style={{ display:'flex', alignItems:'center', gap:8, background:'rgba(13,10,46,.9)', border:'1px solid rgba(124,58,237,.2)', borderRadius:10, padding:'10px 14px', flex:'1 1 200px', maxWidth:300 }}>
+        <div style={{ display:'flex', alignItems:'center', gap:8, background:'rgba(255,255,255,.85)', border:'1px solid rgba(124,58,237,.18)', borderRadius:10, padding:'10px 14px', flex:'1 1 200px', maxWidth:300 }}>
           <Search size={14} color="var(--purple2)"/>
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search bookings…"
             style={{ background:'none', border:'none', outline:'none', color:'var(--text)', fontSize:13, flex:1, fontFamily:'Plus Jakarta Sans,sans-serif' }}/>
@@ -377,8 +377,8 @@ function DestinationsTab() {
                   {d.emoji||'🌍'}
                   <div style={{ position:'absolute', inset:0, backgroundImage:'linear-gradient(rgba(124,58,237,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,.04) 1px, transparent 1px)', backgroundSize:'20px 20px' }}/>
                   <div style={{ position:'absolute', top:8, right:8, display:'flex', gap:5 }}>
-                    <button className="btn-ghost" style={{ padding:'5px 8px', background:'rgba(6,4,26,.8)', borderRadius:8 }} onClick={() => openEdit(d)}><Edit size={12}/></button>
-                    <button className="btn-ghost" style={{ padding:'5px 8px', background:'rgba(6,4,26,.8)', borderRadius:8 }} onClick={() => setDelId(d.id)}><Trash2 size={12} color="var(--red)"/></button>
+                    <button className="btn-ghost" style={{ padding:'5px 8px', background:'rgba(255,255,255,.85)', borderRadius:8 }} onClick={() => openEdit(d)}><Edit size={12}/></button>
+                    <button className="btn-ghost" style={{ padding:'5px 8px', background:'rgba(255,255,255,.85)', borderRadius:8 }} onClick={() => setDelId(d.id)}><Trash2 size={12} color="var(--red)"/></button>
                   </div>
                 </div>
                 <div style={{ padding:'14px 15px' }}>
@@ -484,7 +484,7 @@ function UsersTab() {
       </div>
 
       <div style={{ display:'flex', gap:10, marginBottom:16, flexWrap:'wrap', alignItems:'center' }}>
-        <div style={{ display:'flex', alignItems:'center', gap:8, background:'rgba(13,10,46,.9)', border:'1px solid rgba(124,58,237,.2)', borderRadius:10, padding:'10px 14px', flex:'1 1 200px', maxWidth:300 }}>
+        <div style={{ display:'flex', alignItems:'center', gap:8, background:'rgba(255,255,255,.85)', border:'1px solid rgba(124,58,237,.18)', borderRadius:10, padding:'10px 14px', flex:'1 1 200px', maxWidth:300 }}>
           <Search size={14} color="var(--purple2)"/>
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search by name or email…" style={{ background:'none', border:'none', outline:'none', color:'var(--text)', fontSize:13, flex:1, fontFamily:'Plus Jakarta Sans,sans-serif' }}/>
         </div>
@@ -594,7 +594,7 @@ function AnalyticsTab() {
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(124,58,237,.08)"/>
               <XAxis dataKey="month" stroke="var(--muted)" fontSize={11}/>
               <YAxis stroke="var(--muted)" fontSize={10} tickFormatter={v=>`${(v/1000000).toFixed(1)}M`}/>
-              <Tooltip contentStyle={{ background:'#0c0a2e', border:'1px solid rgba(124,58,237,.3)', borderRadius:10, color:'var(--text)', fontSize:12 }} formatter={v=>kes(v)}/>
+              <Tooltip contentStyle={{ background:'var(--bg2)', border:'1px solid rgba(124,58,237,.25)', borderRadius:10, color:'var(--text)', fontSize:12 }} formatter={v=>kes(v)}/>
               <Bar dataKey="revenue" fill="url(#bg)" radius={[6,6,0,0]}/>
             </BarChart>
           </ResponsiveContainer>
@@ -607,7 +607,7 @@ function AnalyticsTab() {
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(6,182,212,.08)"/>
               <XAxis dataKey="month" stroke="var(--muted)" fontSize={11}/>
               <YAxis stroke="var(--muted)" fontSize={11}/>
-              <Tooltip contentStyle={{ background:'#0c0a2e', border:'1px solid rgba(6,182,212,.3)', borderRadius:10, color:'var(--text)', fontSize:12 }}/>
+              <Tooltip contentStyle={{ background:'var(--bg2)', border:'1px solid rgba(6,182,212,.25)', borderRadius:10, color:'var(--text)', fontSize:12 }}/>
               <Bar dataKey="bookings" fill="url(#cg)" radius={[6,6,0,0]}/>
             </BarChart>
           </ResponsiveContainer>

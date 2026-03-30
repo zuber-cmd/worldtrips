@@ -41,7 +41,7 @@ export default function PackagesPage() {
   return (
     <div className="page mesh-bg">
       {/* Header */}
-      <div style={{ borderBottom:'1px solid rgba(124,58,237,.1)', padding:'32px 0 24px', background:'rgba(6,4,26,.5)' }}>
+      <div style={{ borderBottom:'1px solid rgba(124,58,237,.1)', padding:'32px 0 24px', background:'rgba(255,255,255,.65)' }}>
         <div className="container">
           <span className="section-tag">EXPLORE</span>
           <h1 className="serif" style={{ fontSize:'clamp(26px,4vw,42px)', fontWeight:700, marginBottom:6 }}>
@@ -51,16 +51,16 @@ export default function PackagesPage() {
 
           {/* Filters */}
           <div style={{ display:'flex', gap:10, flexWrap:'wrap', alignItems:'center', marginBottom:14 }}>
-            <div style={{ display:'flex', alignItems:'center', gap:8, background:'rgba(13,10,46,.9)', border:'1px solid rgba(124,58,237,.2)', borderRadius:10, padding:'10px 14px', flex:'1 1 220px', maxWidth:320 }}>
+            <div style={{ display:'flex', alignItems:'center', gap:8, background:'rgba(255,255,255,.88)', border:'1px solid rgba(124,58,237,.2)', borderRadius:10, padding:'10px 14px', flex:'1 1 220px', maxWidth:320 }}>
               <Search size={15} color="var(--purple2)"/>
               <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search destinations…" style={{ background:'none', border:'none', outline:'none', color:'var(--text)', fontSize:13, flex:1, fontFamily:'Plus Jakarta Sans,sans-serif' }}/>
             </div>
-            <div style={{ display:'flex', alignItems:'center', gap:7, background:'rgba(13,10,46,.9)', border:'1px solid rgba(124,58,237,.15)', borderRadius:10, padding:'0 14px', height:44 }}>
+            <div style={{ display:'flex', alignItems:'center', gap:7, background:'rgba(255,255,255,.88)', border:'1px solid rgba(124,58,237,.15)', borderRadius:10, padding:'0 14px', height:44 }}>
               <SlidersHorizontal size={14} color="var(--muted)"/>
               <select value={sort} onChange={e => setSort(e.target.value)} style={{ background:'none', border:'none', outline:'none', color:'var(--text)', fontSize:13, cursor:'pointer', fontFamily:'Plus Jakarta Sans,sans-serif' }}>
-                <option value="rating" style={{ background:'#0c0a2e' }}>Top Rated</option>
-                <option value="price" style={{ background:'#0c0a2e' }}>Price: Low → High</option>
-                <option value="price-d" style={{ background:'#0c0a2e' }}>Price: High → Low</option>
+                <option value="rating" style={{ background:'#ffffff' }}>Top Rated</option>
+                <option value="price" style={{ background:'#ffffff' }}>Price: Low → High</option>
+                <option value="price-d" style={{ background:'#ffffff' }}>Price: High → Low</option>
               </select>
             </div>
           </div>
@@ -94,11 +94,11 @@ export default function PackagesPage() {
                   <div style={{ position:'absolute', top:12, left:12 }}>
                     <span className="badge badge-purple" style={{ fontSize:9, backdropFilter:'blur(8px)' }}>{d.category}</span>
                   </div>
-                  <div style={{ position:'absolute', top:10, right:10, background:'rgba(6,4,26,.75)', borderRadius:20, padding:'4px 10px', fontSize:12, display:'flex', alignItems:'center', gap:3, backdropFilter:'blur(8px)' }}>
+                  <div style={{ position:'absolute', top:10, right:10, background:'rgba(255,255,255,.9)', borderRadius:20, padding:'4px 10px', fontSize:12, display:'flex', alignItems:'center', gap:3, backdropFilter:'blur(8px)' }}>
                     <Star size={10} fill="#f59e0b" color="#f59e0b"/> {d.rating}
                   </div>
                   <div style={{ position:'absolute', bottom:12, left:14 }}>
-                    <div className="serif" style={{ fontSize:20, fontWeight:600 }}>{d.emoji} {d.name}</div>
+                    <div className="serif" style={{ fontSize:20, fontWeight:600, color:'#fff' }}>{d.emoji} {d.name}</div>
                     <div style={{ fontSize:11, color:'rgba(255,255,255,.6)', display:'flex', alignItems:'center', gap:4 }}><MapPin size={9}/>{d.country}</div>
                   </div>
                 </div>

@@ -104,7 +104,7 @@ export default function BookingPage() {
                 <div style={{
                   width:34, height:34, borderRadius:10, display:'flex', alignItems:'center', justifyContent:'center',
                   fontSize:13, fontWeight:700, flexShrink:0, transition:'all .3s',
-                  background: step>s.n ? 'linear-gradient(135deg,#10b981,#059669)' : step===s.n ? 'linear-gradient(135deg,#7c3aed,#6d28d9)' : 'rgba(13,10,46,.8)',
+                  background: step>s.n ? 'linear-gradient(135deg,#10b981,#059669)' : step===s.n ? 'linear-gradient(135deg,#7c3aed,#6d28d9)' : 'rgba(255,255,255,.85)',
                   border: step===s.n ? 'none' : step>s.n ? 'none' : '1px solid rgba(124,58,237,.2)',
                   boxShadow: step===s.n ? '0 4px 15px rgba(124,58,237,.4)' : step>s.n ? '0 4px 12px rgba(16,185,129,.3)' : 'none',
                   color: step>=s.n ? '#fff' : 'var(--muted)',
@@ -167,7 +167,7 @@ export default function BookingPage() {
                       <div key={h.id} onClick={() => setHotel(h)} style={{
                         padding:18, borderRadius:12, cursor:'pointer', transition:'all .25s',
                         border: hotel?.id===h.id ? '2px solid #7c3aed' : '1px solid rgba(124,58,237,.12)',
-                        background: hotel?.id===h.id ? 'rgba(124,58,237,.08)' : 'rgba(13,10,46,.5)',
+                        background: hotel?.id===h.id ? 'rgba(124,58,237,.08)' : 'rgba(255,255,255,.75)',
                         boxShadow: hotel?.id===h.id ? '0 0 20px rgba(124,58,237,.2)' : 'none',
                       }}>
                         <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', gap:12 }}>
@@ -209,7 +209,7 @@ export default function BookingPage() {
                           display:'flex', alignItems:'center', justifyContent:'space-between', padding:'14px 18px',
                           borderRadius:12, cursor:'pointer', transition:'all .25s',
                           border: sel ? '2px solid #7c3aed' : '1px solid rgba(124,58,237,.12)',
-                          background: sel ? 'rgba(124,58,237,.08)' : 'rgba(13,10,46,.5)',
+                          background: sel ? 'rgba(124,58,237,.08)' : 'rgba(255,255,255,.75)',
                         }}>
                           <div style={{ display:'flex', alignItems:'center', gap:14 }}>
                             <span style={{ fontSize:30 }}>{a.emoji}</span>
@@ -223,7 +223,7 @@ export default function BookingPage() {
                               <div style={{ fontWeight:700, fontSize:14, background:'linear-gradient(135deg,#f59e0b,#fbbf24)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent' }}>{kes(a.price)}</div>
                               <div style={{ fontSize:10, color:'var(--muted)' }}>/person</div>
                             </div>
-                            <div style={{ width:24, height:24, borderRadius:7, display:'flex', alignItems:'center', justifyContent:'center', transition:'all .2s', background:sel?'linear-gradient(135deg,#7c3aed,#6d28d9)':'rgba(255,255,255,.06)', border:sel?'none':'1px solid rgba(124,58,237,.2)' }}>
+                            <div style={{ width:24, height:24, borderRadius:7, display:'flex', alignItems:'center', justifyContent:'center', transition:'all .2s', background:sel?'linear-gradient(135deg,#7c3aed,#6d28d9)':'rgba(124,58,237,.06)', border:sel?'none':'1px solid rgba(124,58,237,.2)' }}>
                               {sel && <Check size={13} color="#fff"/>}
                             </div>
                           </div>
@@ -256,7 +256,7 @@ export default function BookingPage() {
                     {[1,2,3,4,5,6].map(n => (
                       <button key={n} onClick={() => setGuests(n)} style={{
                         width:46, height:46, borderRadius:10, cursor:'pointer', fontFamily:'Plus Jakarta Sans,sans-serif', fontWeight:800, fontSize:16, transition:'all .2s',
-                        background: guests===n ? 'linear-gradient(135deg,#7c3aed,#6d28d9)' : 'rgba(13,10,46,.8)',
+                        background: guests===n ? 'linear-gradient(135deg,#7c3aed,#6d28d9)' : 'rgba(255,255,255,.85)',
                         border: guests===n ? 'none' : '1px solid rgba(124,58,237,.2)',
                         color: guests===n ? '#fff' : 'var(--text)',
                         boxShadow: guests===n ? '0 4px 15px rgba(124,58,237,.4)' : 'none',
@@ -282,7 +282,7 @@ export default function BookingPage() {
                     <div key={v} onClick={() => setPay(v)} style={{
                       padding:'18px 16px', textAlign:'center', cursor:'pointer', borderRadius:14, transition:'all .25s',
                       border: payMethod===v ? '2px solid #7c3aed' : '1px solid rgba(124,58,237,.12)',
-                      background: payMethod===v ? 'rgba(124,58,237,.1)' : 'rgba(13,10,46,.5)',
+                      background: payMethod===v ? 'rgba(124,58,237,.1)' : 'rgba(255,255,255,.75)',
                       boxShadow: payMethod===v ? '0 0 20px rgba(124,58,237,.2)' : 'none',
                     }}>
                       <div style={{ fontSize:36, marginBottom:8 }}>{ico}</div>

@@ -33,7 +33,7 @@ const FEATURES = [
 const PHASES = [
   {
     icon: 'WT', accent: '#c9a84c',
-    bg: ['#07031a','#120640','#0b1240'],
+    bg: ['#fff7e6','#ede9fe','#e0f2fe'],
     title: 'Welcome to WorldTrips',
     sub: 'Your Gateway to the World',
     desc: 'A complete travel booking experience built for Kenyan travellers.',
@@ -46,7 +46,7 @@ const PHASES = [
   },
   {
     icon: '15', accent: '#4cba7e',
-    bg: ['#021a0d','#041a12','#021510'],
+    bg: ['#dcfce7','#e0f2fe','#fef9c3'],
     title: 'Explore 15 Destinations',
     sub: 'Across 7 Regions Worldwide',
     desc: 'From the Masai Mara to the Northern Lights — the world is yours.',
@@ -59,7 +59,7 @@ const PHASES = [
   },
   {
     icon: '★', accent: '#4ab8d4',
-    bg: ['#021520','#031828','#020f1a'],
+    bg: ['#e0f2fe','#ede9fe','#fdf2f8'],
     title: 'Book Everything in One Place',
     sub: 'Hotels · Activities · Experiences',
     desc: 'One platform. Your entire trip taken care of.',
@@ -72,7 +72,7 @@ const PHASES = [
   },
   {
     icon: '💰', accent: '#e8c97a',
-    bg: ['#1a1000','#201400','#150e00'],
+    bg: ['#fffbeb','#fef3c7','#ffedd5'],
     title: 'All Priced in KES',
     sub: 'No Hidden Fees. No Surprises.',
     desc: 'What you see is exactly what you pay.',
@@ -85,7 +85,7 @@ const PHASES = [
   },
   {
     icon: '📱', accent: '#9b6fd4',
-    bg: ['#0f0520','#160840','#0a0530'],
+    bg: ['#f3e8ff','#fce7f3','#e0f2fe'],
     title: 'Pay Your Way',
     sub: 'M-Pesa · Visa · Mastercard',
     desc: 'Secure, instant payment with the methods you trust.',
@@ -98,7 +98,7 @@ const PHASES = [
   },
   {
     icon: 'AI', accent: '#06b6d4',
-    bg: ['#021520','#031a28','#041525'],
+    bg: ['#e0f2fe','#e9d5ff','#fefce8'],
     title: 'AI Travel Assistant',
     sub: 'Ask Anything. Plan Everything.',
     desc: 'Your personal travel expert available 24 hours a day.',
@@ -112,7 +112,7 @@ const PHASES = [
   },
   {
     icon: '◆', accent: '#f59e0b',
-    bg: ['#1a0d00','#201200','#150a00'],
+    bg: ['#fff7ed','#fee2e2','#fefce8'],
     title: 'Why Kenyan Travellers Choose Us',
     sub: 'Built Here. For You.',
     desc: 'A platform that understands what Kenyan travellers actually need.',
@@ -258,7 +258,7 @@ function IntroVideo({ onFinish }) {
     return (
       <div style={{
         position:'fixed', inset:0, zIndex:9999,
-        background:'linear-gradient(160deg,#07031a,#120640,#0b1240)',
+        background:'linear-gradient(160deg,#ffffff,#ede9fe,#e0f2fe)',
         display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center',
         fontFamily:"'Outfit',sans-serif",
       }}>
@@ -288,10 +288,10 @@ function IntroVideo({ onFinish }) {
         </div>
 
         {/* Tagline */}
-        <p style={{animation:'sp-in .65s .15s ease both',fontSize:15,color:'rgba(245,238,217,.5)',lineHeight:1.8,maxWidth:360,textAlign:'center',margin:'0 0 14px',padding:'0 28px'}}>
+        <p style={{animation:'sp-in .65s .15s ease both',fontSize:15,color:'rgba(15,23,42,.55)',lineHeight:1.8,maxWidth:360,textAlign:'center',margin:'0 0 14px',padding:'0 28px'}}>
           A cinematic 3-minute guide to 15 amazing destinations
         </p>
-        <p style={{animation:'sp-in .65s .22s ease both',fontSize:13,color:'rgba(201,168,76,.5)',textAlign:'center',margin:'0 0 44px'}}>
+        <p style={{animation:'sp-in .65s .22s ease both',fontSize:13,color:'rgba(109,40,217,.45)',textAlign:'center',margin:'0 0 44px'}}>
           🔊 &nbsp;Turn your volume up for narration
         </p>
 
@@ -325,7 +325,7 @@ function IntroVideo({ onFinish }) {
           ▶ &nbsp; Begin Experience
         </button>
 
-        <button onClick={onFinish} style={{animation:'sp-in .65s .42s ease both',background:'none',border:'none',color:'rgba(245,238,217,.28)',fontSize:13,cursor:'pointer',fontFamily:"'Outfit',sans-serif",letterSpacing:.4}}>
+        <button onClick={onFinish} style={{animation:'sp-in .65s .42s ease both',background:'none',border:'none',color:'rgba(15,23,42,.28)',fontSize:13,cursor:'pointer',fontFamily:"'Outfit',sans-serif",letterSpacing:.4}}>
           Skip intro →
         </button>
       </div>
@@ -515,7 +515,7 @@ export default function LandingPage() {
       {/* ── Hero ─────────────────────────────────────────────── */}
       <div style={{minHeight:'100vh',display:'flex',alignItems:'center',padding:'80px 24px 60px',position:'relative',overflow:'hidden'}}>
         {/* Background */}
-        <div style={{position:'absolute',inset:0,background:'linear-gradient(160deg,#07031a 0%,#0c0730 50%,#071530 100%)'}}>
+        <div style={{position:'absolute',inset:0,background:'linear-gradient(160deg,#fff7e6 0%,#ede9fe 50%,#e0f2fe 100%)'}}>
           <div style={{position:'absolute',inset:0,backgroundImage:'linear-gradient(rgba(201,168,76,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.04) 1px,transparent 1px)',backgroundSize:'48px 48px'}}/>
           <div style={{position:'absolute',top:'20%',right:'5%',width:500,height:500,borderRadius:'50%',background:'radial-gradient(circle,rgba(138,60,220,.14) 0%,transparent 70%)',filter:'blur(60px)'}}/>
           <div style={{position:'absolute',bottom:'10%',left:'5%',width:440,height:440,borderRadius:'50%',background:'radial-gradient(circle,rgba(201,168,76,.1) 0%,transparent 70%)',filter:'blur(55px)'}}/>

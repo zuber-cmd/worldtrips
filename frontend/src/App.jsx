@@ -13,10 +13,10 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 
 function Loading() {
   return (
-    <div style={{ minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column',gap:16,background:'#07101e' }}>
+    <div style={{ minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column',gap:16,background:'var(--bg)' }}>
       <div style={{ width:52,height:52,borderRadius:14,background:'linear-gradient(135deg,#c9a84c,#9d7c2e)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:24 }}>✈️</div>
       <Spinner size={26}/>
-      <div style={{ color:'#8a95a8',fontSize:13 }}>Loading WorldTrips…</div>
+      <div style={{ color:'var(--muted)',fontSize:13 }}>Loading WorldTrips…</div>
     </div>
   );
 }

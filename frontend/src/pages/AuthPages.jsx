@@ -11,7 +11,7 @@ function AuthLayout({ children, title, sub, link }) {
     <div style={{ minHeight:'100vh', display:'grid', gridTemplateColumns:'1fr 1fr', background:'var(--bg)' }}>
       {/* Left panel */}
       <div style={{ position:'relative', overflow:'hidden', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:40,
-        background:'linear-gradient(145deg,#0c0a2e,#130f40)',
+        background:'linear-gradient(145deg,#ffffff,#eef1ff)',
         borderRight:'1px solid rgba(124,58,237,.15)' }} className="hide-sm">
         {/* Mesh gradient */}
         <div style={{ position:'absolute', inset:0, backgroundImage:'radial-gradient(ellipse 70% 60% at 30% 30%, rgba(124,58,237,.2) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 80% 80%, rgba(6,182,212,.1) 0%, transparent 55%)', pointerEvents:'none' }} />
@@ -25,7 +25,7 @@ function AuthLayout({ children, title, sub, link }) {
           <h2 className="serif" style={{ fontSize:42, fontWeight:700, marginBottom:14, lineHeight:1.15 }}>
             Explore the<br/><span style={{ background:'linear-gradient(135deg,#f59e0b,#fbbf24)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent' }}>World</span>
           </h2>
-          <p style={{ color:'rgba(196,181,253,.6)', fontSize:15, lineHeight:1.7, marginBottom:36 }}>
+          <p style={{ color:'rgba(109,40,217,.55)', fontSize:15, lineHeight:1.7, marginBottom:36 }}>
             15 hand-picked destinations, all priced in Kenya Shillings. Your journey starts here.
           </p>
           <div style={{ display:'flex', flexWrap:'wrap', gap:8, justifyContent:'center' }}>
