@@ -15,7 +15,11 @@ if (isProd) {
   app.set('trust proxy', 1);
 }
 
-app.use(helmet({ contentSecurityPolicy: false }));
+app.use(helmet({
+  contentSecurityPolicy: false,
+  // Default is same-origin — blocks credentialed cross-origin fetch from Vercel → Render
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
+}));
 
 // ── CORS: allow localhost + configured frontend ───────────────
 app.use(cors({
@@ -52,8 +56,8 @@ app.use(cors({
       return callback(null, true);
     }
 
-    // In production, block disallowed origins
-    return callback(new Error('Not allowed by CORS'), false);
+    // In production, block disallowed origins (do NOT pass Error — that turns preflight into HTTP 500)
+    return callback(null, false);
   },
   credentials: true,
   methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
