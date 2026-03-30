@@ -17,51 +17,65 @@ if (isProd) {
 
 app.use(helmet({
   contentSecurityPolicy: false,
-  // Default is same-origin — blocks credentialed cross-origin fetch from Vercel → Render
+  // Default is same-origin — blocks cross-origin fetch from Vercel → Render
   crossOriginResourcePolicy: { policy: 'cross-origin' },
+  // Avoid extra isolation headers on a public JSON API
+  crossOriginOpenerPolicy: false,
 }));
 
+function normalizeOrigin(o) {
+  if (!o || typeof o !== 'string') return '';
+  return o.trim().replace(/\/$/, '');
+}
+
 // ── CORS: allow localhost + configured frontend ───────────────
+// Note: Auth uses Bearer tokens in headers + localStorage — not cookies — so credentials:false
+// avoids strict credentialed-CORS issues (exact Origin match, no wildcard with credentials).
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (mobile apps, curl, Postman)
     if (!origin) return callback(null, true);
 
     const allowed = [
-      // localhost variants
       /^http:\/\/localhost(:\d+)?$/,
       /^http:\/\/127\.0\.0\.1(:\d+)?$/,
-      // Local network — 192.168.x.x, 10.x.x.x, 172.16-31.x.x
       /^http:\/\/192\.168\.\d+\.\d+(:\d+)?$/,
       /^http:\/\/10\.\d+\.\d+\.\d+(:\d+)?$/,
       /^http:\/\/172\.(1[6-9]|2\d|3[01])\.\d+\.\d+(:\d+)?$/,
     ];
 
-    if (allowed.some(pattern => pattern.test(origin))) {
+    if (allowed.some((pattern) => pattern.test(origin))) {
       return callback(null, true);
     }
 
-    const extraOrigins = (process.env.FRONTEND_URLS || '')
+    const front = normalizeOrigin(process.env.FRONTEND_URL);
+    const extras = (process.env.FRONTEND_URLS || '')
       .split(',')
-      .map((s) => s.trim())
+      .map((s) => normalizeOrigin(s))
       .filter(Boolean);
-    if (origin === process.env.FRONTEND_URL || extraOrigins.includes(origin)) {
+
+    if (front && normalizeOrigin(origin) === front) {
+      return callback(null, true);
+    }
+    if (extras.includes(normalizeOrigin(origin))) {
+      return callback(null, true);
+    }
+
+    // Vercel production + preview URLs (HTTPS only)
+    if (/^https:\/\/[a-z0-9-]+\.vercel\.app$/i.test(origin)) {
       return callback(null, true);
     }
 
     console.warn('CORS blocked origin:', origin);
 
-    // In development, be permissive to reduce friction
     if (!isProd) {
       return callback(null, true);
     }
 
-    // In production, block disallowed origins (do NOT pass Error — that turns preflight into HTTP 500)
     return callback(null, false);
   },
-  credentials: true,
-  methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
-  allowedHeaders: ['Content-Type','Authorization'],
+  credentials: false,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 app.use(express.json({ limit: '5mb' }));
