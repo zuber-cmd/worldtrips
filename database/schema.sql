@@ -105,13 +105,13 @@ CREATE TRIGGER trg_bookings_upd BEFORE UPDATE ON bookings FOR EACH ROW EXECUTE F
 -- Admin user (password: Admin@1234)
 INSERT INTO users (full_name, email, phone, password_hash, role)
 VALUES ('Admin WorldTrips','admin@worldtrips.ke','+254700000000',
-  '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewFoVvom6UaJJXFW','admin')
+  '$2b$12$wziIo0lhfm2hyiWIdUp0Uuh6Fk0BeB55DGHr3yRYJaH9OQjoRhw46','admin')
 ON CONFLICT (email) DO NOTHING;
 
 -- Sample customer (password: Admin@1234)
 INSERT INTO users (full_name, email, phone, password_hash, role)
 VALUES ('Sarah Kamau','sarah@example.com','+254712345678',
-  '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewFoVvom6UaJJXFW','customer')
+  '$2b$12$wziIo0lhfm2hyiWIdUp0Uuh6Fk0BeB55DGHr3yRYJaH9OQjoRhw46','customer')
 ON CONFLICT (email) DO NOTHING;
 
 -- Destinations (no emojis to avoid encoding issues)
