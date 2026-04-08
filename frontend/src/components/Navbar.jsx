@@ -49,7 +49,7 @@ export default function Navbar() {
             <Link key={l.to} to={l.to} style={{
               padding:'7px 13px', borderRadius:8, fontSize:13, textDecoration:'none', transition:'all .18s',
               fontWeight: isActive(l.to) ? 600 : 400,
-              color: isActive(l.to) ? '#a78bfa' : '#6b7280',
+              color: isActive(l.to) ? '#6d28d9' : '#374151',
               background: isActive(l.to) ? 'rgba(124,58,237,.12)' : 'transparent',
               border: isActive(l.to) ? '1px solid rgba(124,58,237,.2)' : '1px solid transparent',
             }}>{l.label}</Link>
@@ -113,7 +113,7 @@ export default function Navbar() {
           {links.map(l => (
             <Link key={l.to} to={l.to} onClick={() => setMenuOpen(false)} style={{
               display:'flex', alignItems:'center', gap:12, padding:'13px 22px', fontSize:15, textDecoration:'none',
-              color: isActive(l.to) ? '#a78bfa' : 'var(--muted2)',
+              color: isActive(l.to) ? '#6d28d9' : '#374151',
               borderLeft:`3px solid ${isActive(l.to) ? '#7c3aed' : 'transparent'}`,
               background: isActive(l.to) ? 'rgba(124,58,237,.06)' : 'transparent',
             }}>
@@ -134,7 +134,7 @@ export default function Navbar() {
       {/* Bottom nav for mobile */}
       <nav className="bottom-nav" style={{ justifyContent:'space-around' }}>
         {links.map(l => (
-          <Link key={l.to} to={l.to} style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:3, padding:'4px 8px', textDecoration:'none', color: isActive(l.to) ? '#a78bfa' : 'var(--muted)', fontSize:9, fontWeight: isActive(l.to) ? 600 : 400 }}>
+          <Link key={l.to} to={l.to} style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:3, padding:'4px 8px', textDecoration:'none', color: isActive(l.to) ? '#6d28d9' : '#6b7280', fontSize:9, fontWeight: isActive(l.to) ? 600 : 400 }}>
             <l.icon size={20}/>
             {l.label}
           </Link>

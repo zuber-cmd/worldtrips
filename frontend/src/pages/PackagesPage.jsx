@@ -97,9 +97,9 @@ export default function PackagesPage() {
                   <div style={{ position:'absolute', top:10, right:10, background:'rgba(255,255,255,.9)', borderRadius:20, padding:'4px 10px', fontSize:12, display:'flex', alignItems:'center', gap:3, backdropFilter:'blur(8px)' }}>
                     <Star size={10} fill="#f59e0b" color="#f59e0b"/> {d.rating}
                   </div>
-                  <div style={{ position:'absolute', bottom:12, left:14 }}>
+                  <div style={{ position:'absolute', bottom:12, left:14, right:12, textShadow:'0 1px 4px rgba(0,0,0,.75)' }}>
                     <div className="serif" style={{ fontSize:20, fontWeight:600, color:'#fff' }}>{d.emoji} {d.name}</div>
-                    <div style={{ fontSize:11, color:'rgba(255,255,255,.6)', display:'flex', alignItems:'center', gap:4 }}><MapPin size={9}/>{d.country}</div>
+                    <div style={{ fontSize:11, color:'rgba(248,250,252,.92)', display:'flex', alignItems:'center', gap:4 }}><MapPin size={9}/>{d.country}</div>
                   </div>
                 </div>
                 <div style={{ padding:'14px 16px 16px' }}>

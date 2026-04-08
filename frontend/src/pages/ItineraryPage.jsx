@@ -101,8 +101,8 @@ export default function ItineraryPage() {
                   {BUDGET_OPTS.map(b => (
                     <button key={b.val} onClick={() => setBudget(b.val)} style={{
                       display:'flex', alignItems:'center', gap:12, padding:'11px 14px', borderRadius:10, cursor:'pointer', fontFamily:'Plus Jakarta Sans,sans-serif', transition:'all .2s', textAlign:'left',
-                      background: budget===b.val ? 'rgba(124,58,237,.15)' : 'rgba(255,255,255,.03)',
-                      border: budget===b.val ? '1px solid rgba(124,58,237,.4)' : '1px solid rgba(255,255,255,.08)',
+                      background: budget===b.val ? 'rgba(124,58,237,.12)' : '#ffffff',
+                      border: budget===b.val ? '1px solid rgba(124,58,237,.4)' : '1px solid #e5e7eb',
                     }}>
                       <span style={{ fontSize:22 }}>{b.ico}</span>
                       <div>
@@ -126,9 +126,9 @@ export default function ItineraryPage() {
           {/* Plan output */}
           <div>
             {!plan ? (
-              <div style={{ display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', minHeight:380, textAlign:'center', background:'rgba(13,10,46,.5)', border:'2px dashed rgba(124,58,237,.15)', borderRadius:16, padding:40 }}>
+              <div style={{ display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', minHeight:380, textAlign:'center', background:'#f9fafb', border:'2px dashed #e5e7eb', borderRadius:16, padding:40 }}>
                 <div style={{ fontSize:64, marginBottom:18, filter:'drop-shadow(0 0 20px rgba(124,58,237,.3))' }}></div>
-                <h3 className="serif" style={{ fontSize:24, marginBottom:10, fontWeight:600 }}>Your Itinerary Awaits</h3>
+                <h3 className="serif" style={{ fontSize:24, marginBottom:10, fontWeight:600, color:'#111827' }}>Your Itinerary Awaits</h3>
                 <p style={{ color:'var(--muted)', fontSize:14, maxWidth:300, lineHeight:1.7 }}>Select a destination, set your preferences, and click Generate Plan</p>
               </div>
             ) : (

@@ -39,10 +39,12 @@ export default function ChatPage() {
     setLoading(false);
   };
 
-  const formatMsg = (text) => text.split('\n').map((line, i) => {
+  const formatMsg = (text, role = 'assistant') => text.split('\n').map((line, i) => {
+    const strongColor = role === 'user' ? '#fef3c7' : '#6d28d9';
+    const bulletColor = role === 'user' ? '#e9d5ff' : '#7c3aed';
     const html = line
-      .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#fbbf24;font-weight:600">$1</strong>')
-      .replace(/•/g, '<span style="color:#7c3aed">•</span>');
+      .replace(/\*\*(.*?)\*\*/g, `<strong style="color:${strongColor};font-weight:600">$1</strong>`)
+      .replace(/•/g, `<span style="color:${bulletColor}">•</span>`);
     return <div key={i} style={{ marginBottom:3, lineHeight:1.7 }} dangerouslySetInnerHTML={{ __html:html }}/>;
   });
 
@@ -81,14 +83,15 @@ export default function ChatPage() {
                 maxWidth:'78%', fontSize:13.5, lineHeight:1.65, padding:'13px 16px',
                 borderRadius: m.role==='user' ? '18px 18px 4px 18px' : '4px 18px 18px 18px',
                 background: m.role==='user'
-                  ? 'linear-gradient(135deg,rgba(124,58,237,.25),rgba(109,40,217,.15))'
-                  : 'rgba(255,255,255,.88)',
+                  ? 'linear-gradient(135deg,#7c3aed,#6d28d9)'
+                  : '#ffffff',
                 border: m.role==='user'
-                  ? '1px solid rgba(124,58,237,.35)'
-                  : '1px solid rgba(124,58,237,.1)',
-                boxShadow:'0 4px 15px rgba(0,0,0,.2)',
+                  ? '1px solid rgba(124,58,237,.45)'
+                  : '1px solid #e5e7eb',
+                boxShadow:'0 1px 3px rgba(0,0,0,.08)',
+                color: m.role==='user' ? '#ffffff' : '#111827',
               }}>
-                {formatMsg(m.content)}
+                {formatMsg(m.content, m.role)}
               </div>
               {m.role==='user' && (
                 <div style={{ width:32, height:32, borderRadius:10, background:'linear-gradient(135deg,#7c3aed,#6d28d9)', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, boxShadow:'0 4px 12px rgba(124,58,237,.4)' }}>

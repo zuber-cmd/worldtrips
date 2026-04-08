@@ -143,8 +143,8 @@ export function Modal({ open, onClose, title, children, maxWidth = 560 }) {
   return (
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal-box fade-up" style={{ maxWidth }} onClick={e => e.stopPropagation()}>
-        <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', padding:'18px 22px', borderBottom:'1px solid rgba(124,58,237,.12)' }}>
-          <span className="serif" style={{ fontSize: 20, fontWeight: 500 }}>{title}</span>
+        <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', padding:'18px 22px', borderBottom:'1px solid var(--border, #e5e7eb)' }}>
+          <span className="serif" style={{ fontSize: 20, fontWeight: 600, color:'var(--text, #111827)' }}>{title}</span>
           <button className="btn-ghost" onClick={onClose}><X size={16} /></button>
         </div>
         <div style={{ padding: '20px 22px' }}>{children}</div>

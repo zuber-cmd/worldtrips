@@ -53,8 +53,8 @@ function StatusPill({ status }) {
 function ChartTip({ active, payload, label, prefix='' }) {
   if (!active || !payload?.length) return null;
   return (
-    <div style={{ background:'rgba(10,15,30,.97)', border:'1px solid rgba(13,148,136,.25)', borderRadius:10, padding:'10px 14px', fontSize:12, boxShadow:'0 10px 30px rgba(0,0,0,.5)' }}>
-      <div style={{ color:'#94a3b8', marginBottom:6 }}>{label}</div>
+    <div style={{ background:'#ffffff', border:'1px solid #e5e7eb', borderRadius:10, padding:'10px 14px', fontSize:12, boxShadow:'0 4px 12px rgba(0,0,0,.1)' }}>
+      <div style={{ color:'#6b7280', marginBottom:6 }}>{label}</div>
       {payload.map((p,i) => (
         <div key={i} style={{ color:p.color, fontWeight:700 }}>{prefix}{p.value?.toLocaleString()}</div>
       ))}
@@ -149,8 +149,8 @@ export default function Dashboard() {
         @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
         @keyframes slideIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
         @keyframes glow { 0%,100%{box-shadow:0 0 20px rgba(13,148,136,.2)} 50%{box-shadow:0 0 40px rgba(13,148,136,.4)} }
-        .dash-card { background:rgba(13,20,40,.7);border:1px solid rgba(13,148,136,.1);border-radius:16px;backdrop-filter:blur(12px);transition:all .3s; }
-        .dash-card:hover { border-color:rgba(13,148,136,.25);box-shadow:0 8px 30px rgba(0,0,0,.3); }
+        .dash-card { background:#ffffff;border:1px solid #e5e7eb;border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.08);transition:all .3s; }
+        .dash-card:hover { border-color:rgba(13,148,136,.35);box-shadow:0 8px 24px rgba(0,0,0,.1); }
         .stat-glow:hover { animation:glow 2s ease-in-out infinite; }
         .anim-0{animation:slideIn .5s ease forwards;animation-delay:.05s;opacity:0}
         .anim-1{animation:slideIn .5s ease forwards;animation-delay:.1s;opacity:0}
@@ -159,8 +159,8 @@ export default function Dashboard() {
         .anim-4{animation:slideIn .5s ease forwards;animation-delay:.25s;opacity:0}
         .anim-5{animation:slideIn .5s ease forwards;animation-delay:.3s;opacity:0}
         .anim-6{animation:slideIn .5s ease forwards;animation-delay:.35s;opacity:0}
-        .booking-row:hover { background:rgba(13,148,136,.05) !important; }
-        .quick-btn:hover { transform:translateY(-3px);border-color:rgba(13,148,136,.5) !important; }
+        .booking-row:hover { background:#f9fafb !important; }
+        .quick-btn:hover { transform:translateY(-2px);border-color:rgba(13,148,136,.45) !important; background:#f9fafb !important; }
       `}</style>
 
       {/* Decorative background */}
@@ -179,11 +179,11 @@ export default function Dashboard() {
             <div style={{ display:'inline-flex', alignItems:'center', gap:8, background:'rgba(13,148,136,.1)', border:'1px solid rgba(13,148,136,.2)', borderRadius:20, padding:'5px 14px', marginBottom:14, fontSize:11, color:'#2dd4bf', fontWeight:600, letterSpacing:.5 }}>
               <Sparkles size={11}/> PERSONAL TRAVEL DASHBOARD
             </div>
-            <h1 style={{ fontFamily:'Syne,sans-serif', fontSize:'clamp(26px,4vw,44px)', fontWeight:800, lineHeight:1.15, marginBottom:8 }}>
+            <h1 style={{ fontFamily:'Syne,sans-serif', fontSize:'clamp(26px,4vw,44px)', fontWeight:800, lineHeight:1.15, marginBottom:8, color:'#111827' }}>
               {greeting},<br/>
               <span style={{ background:'linear-gradient(135deg,#2dd4bf,#0d9488)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent' }}>{firstName} </span>
             </h1>
-            <p style={{ color:'#64748b', fontSize:14 }}>Here's an overview of your travel journey and spending.</p>
+            <p style={{ color:'#6b7280', fontSize:14 }}>Here's an overview of your travel journey and spending.</p>
           </div>
           <div style={{ display:'flex', gap:10, flexWrap:'wrap' }}>
             <button onClick={() => nav('/packages')} style={{ display:'inline-flex', alignItems:'center', gap:8, padding:'11px 20px', background:'rgba(13,148,136,.12)', border:'1px solid rgba(13,148,136,.3)', borderRadius:12, color:'#2dd4bf', fontSize:13, fontWeight:600, cursor:'pointer', transition:'all .2s', fontFamily:'Plus Jakarta Sans,sans-serif' }}
@@ -218,8 +218,8 @@ export default function Dashboard() {
                   : <Counter value={s.val}/>
                 }
               </div>
-              <div style={{ fontSize:13, fontWeight:600, color:'#e2e8f0', marginBottom:4 }}>{s.label}</div>
-              <div style={{ fontSize:11, color:'#475569' }}>{s.sub}</div>
+              <div style={{ fontSize:13, fontWeight:600, color:'#374151', marginBottom:4 }}>{s.label}</div>
+              <div style={{ fontSize:11, color:'#6b7280' }}>{s.sub}</div>
             </div>
           ))}
         </div>
@@ -232,11 +232,11 @@ export default function Dashboard() {
             <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:20 }}>
               <div>
                 <div style={{ fontFamily:'Syne,sans-serif', fontSize:16, fontWeight:700, marginBottom:3 }}>Travel Analytics</div>
-                <div style={{ fontSize:12, color:'#475569' }}>Last 6 months overview</div>
+                <div style={{ fontSize:12, color:'#6b7280' }}>Last 6 months overview</div>
               </div>
-              <div style={{ display:'flex', gap:6, background:'rgba(0,0,0,.3)', borderRadius:8, padding:4 }}>
+              <div style={{ display:'flex', gap:6, background:'#f3f4f6', borderRadius:8, padding:4, border:'1px solid #e5e7eb' }}>
                 {[['spending','Spending'],['bookings','Bookings']].map(([k,l]) => (
-                  <button key={k} onClick={() => setActiveChart(k)} style={{ padding:'5px 14px', borderRadius:6, fontSize:11, fontWeight:600, cursor:'pointer', transition:'all .2s', border:'none', fontFamily:'Plus Jakarta Sans,sans-serif', background:activeChart===k?'rgba(13,148,136,.3)':'transparent', color:activeChart===k?'#2dd4bf':'#475569' }}>{l}</button>
+                  <button key={k} onClick={() => setActiveChart(k)} style={{ padding:'5px 14px', borderRadius:6, fontSize:11, fontWeight:600, cursor:'pointer', transition:'all .2s', border:'none', fontFamily:'Plus Jakarta Sans,sans-serif', background:activeChart===k?'rgba(13,148,136,.2)':'transparent', color:activeChart===k?'#0f766e':'#374151' }}>{l}</button>
                 ))}
               </div>
             </div>
@@ -249,9 +249,9 @@ export default function Dashboard() {
                       <stop offset="95%" stopColor="#0d9488" stopOpacity={0}/>
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,.04)" vertical={false}/>
-                  <XAxis dataKey="label" stroke="#334155" fontSize={11} tick={{ fill:'#475569' }} axisLine={false} tickLine={false}/>
-                  <YAxis stroke="#334155" fontSize={10} tick={{ fill:'#475569' }} axisLine={false} tickLine={false} tickFormatter={v=>`${(v/1000).toFixed(0)}K`}/>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false}/>
+                  <XAxis dataKey="label" stroke="#9ca3af" fontSize={11} tick={{ fill:'#6b7280' }} axisLine={false} tickLine={false}/>
+                  <YAxis stroke="#9ca3af" fontSize={10} tick={{ fill:'#6b7280' }} axisLine={false} tickLine={false} tickFormatter={v=>`${(v/1000).toFixed(0)}K`}/>
                   <Tooltip content={<ChartTip prefix="KES "/>}/>
                   <Area type="monotone" dataKey="spend" stroke="#0d9488" strokeWidth={2.5} fill="url(#tg)" dot={{ fill:'#0d9488', strokeWidth:0, r:4 }} activeDot={{ r:6, fill:'#2dd4bf', strokeWidth:0 }}/>
                 </AreaChart>
@@ -263,9 +263,9 @@ export default function Dashboard() {
                       <stop offset="100%" stopColor="#4f46e5" stopOpacity={.6}/>
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,.04)" vertical={false}/>
-                  <XAxis dataKey="label" stroke="#334155" fontSize={11} tick={{ fill:'#475569' }} axisLine={false} tickLine={false}/>
-                  <YAxis stroke="#334155" fontSize={11} tick={{ fill:'#475569' }} axisLine={false} tickLine={false}/>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false}/>
+                  <XAxis dataKey="label" stroke="#9ca3af" fontSize={11} tick={{ fill:'#6b7280' }} axisLine={false} tickLine={false}/>
+                  <YAxis stroke="#9ca3af" fontSize={11} tick={{ fill:'#6b7280' }} axisLine={false} tickLine={false}/>
                   <Tooltip content={<ChartTip/>}/>
                   <Bar dataKey="count" fill="url(#bg2)" radius={[6,6,0,0]} maxBarSize={48}/>
                 </BarChart>
@@ -278,7 +278,7 @@ export default function Dashboard() {
             <div style={{ fontFamily:'Syne,sans-serif', fontSize:16, fontWeight:700, marginBottom:4 }}>
               {destBreakdown.length > 0 ? 'Spending by Destination' : 'Booking Status'}
             </div>
-            <div style={{ fontSize:12, color:'#475569', marginBottom:16 }}>Breakdown overview</div>
+            <div style={{ fontSize:12, color:'#6b7280', marginBottom:16 }}>Breakdown overview</div>
             <div style={{ flex:1, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center' }}>
               {destBreakdown.length > 0 ? (
                 <>
@@ -288,9 +288,9 @@ export default function Dashboard() {
                         {destBreakdown.map((_, i) => <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} stroke="transparent"/>)}
                       </Pie>
                       <Tooltip content={({ active, payload }) => active && payload?.length ? (
-                        <div style={{ background:'rgba(10,15,30,.97)', border:'1px solid rgba(13,148,136,.2)', borderRadius:8, padding:'8px 12px', fontSize:11 }}>
-                          <div style={{ color:'#94a3b8', marginBottom:3 }}>{payload[0].name}</div>
-                          <div style={{ color:payload[0].payload.fill || '#2dd4bf', fontWeight:700 }}>KES {payload[0].value?.toLocaleString()}</div>
+                        <div style={{ background:'#ffffff', border:'1px solid #e5e7eb', borderRadius:8, padding:'8px 12px', fontSize:11, boxShadow:'0 4px 12px rgba(0,0,0,.08)' }}>
+                          <div style={{ color:'#6b7280', marginBottom:3 }}>{payload[0].name}</div>
+                          <div style={{ color:payload[0].payload.fill || '#0d9488', fontWeight:700 }}>KES {payload[0].value?.toLocaleString()}</div>
                         </div>
                       ) : null}/>
                     </PieChart>
@@ -300,9 +300,9 @@ export default function Dashboard() {
                       <div key={i} style={{ display:'flex', alignItems:'center', justifyContent:'space-between', fontSize:11 }}>
                         <div style={{ display:'flex', alignItems:'center', gap:7 }}>
                           <div style={{ width:8, height:8, borderRadius:'50%', background:PIE_COLORS[i % PIE_COLORS.length], flexShrink:0 }}/>
-                          <span style={{ color:'#94a3b8' }}>{d.name}</span>
+                          <span style={{ color:'#6b7280' }}>{d.name}</span>
                         </div>
-                        <span style={{ fontWeight:700, color:'#e2e8f0' }}>KES {(d.value/1000).toFixed(0)}K</span>
+                        <span style={{ fontWeight:700, color:'#111827' }}>KES {(d.value/1000).toFixed(0)}K</span>
                       </div>
                     ))}
                   </div>
@@ -312,11 +312,11 @@ export default function Dashboard() {
                   <ResponsiveContainer width="100%" height={160}>
                     <PieChart>
                       <Pie data={statusData.length > 0 ? statusData : [{name:'No trips yet',value:1}]} cx="50%" cy="50%" innerRadius={45} outerRadius={72} paddingAngle={3} dataKey="value">
-                        {(statusData.length > 0 ? statusData : [{fill:'rgba(255,255,255,.05)'}]).map((d, i) => <Cell key={i} fill={d.fill || 'rgba(255,255,255,.05)'} stroke="transparent"/>)}
+                        {(statusData.length > 0 ? statusData : [{fill:'#e5e7eb'}]).map((d, i) => <Cell key={i} fill={d.fill || '#e5e7eb'} stroke="transparent"/>)}
                       </Pie>
                     </PieChart>
                   </ResponsiveContainer>
-                  <div style={{ textAlign:'center', fontSize:12, color:'#475569' }}>Book your first trip to see stats!</div>
+                  <div style={{ textAlign:'center', fontSize:12, color:'#6b7280' }}>Book your first trip to see stats!</div>
                 </>
               )}
             </div>
@@ -331,7 +331,7 @@ export default function Dashboard() {
             <div style={{ padding:'20px 24px 16px', borderBottom:'1px solid rgba(13,148,136,.08)', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
               <div>
                 <div style={{ fontFamily:'Syne,sans-serif', fontSize:16, fontWeight:700, marginBottom:2 }}>My Bookings</div>
-                <div style={{ fontSize:12, color:'#475569' }}>{bookings.length} total · {upcoming.length} upcoming</div>
+                <div style={{ fontSize:12, color:'#6b7280' }}>{bookings.length} total · {upcoming.length} upcoming</div>
               </div>
               <button onClick={() => nav('/book')} style={{ display:'inline-flex', alignItems:'center', gap:5, padding:'7px 14px', background:'rgba(13,148,136,.1)', border:'1px solid rgba(13,148,136,.25)', borderRadius:8, color:'#2dd4bf', fontSize:12, fontWeight:600, cursor:'pointer', fontFamily:'Plus Jakarta Sans,sans-serif' }}>
                 + New
@@ -342,7 +342,7 @@ export default function Dashboard() {
               <div style={{ padding:'60px 24px', textAlign:'center' }}>
                 <div style={{ fontSize:52, marginBottom:14 }}>🌍</div>
                 <div style={{ fontFamily:'Syne,sans-serif', fontSize:18, fontWeight:700, marginBottom:8 }}>No trips yet</div>
-                <p style={{ color:'#475569', fontSize:13, marginBottom:20 }}>Book your first adventure today!</p>
+                <p style={{ color:'#6b7280', fontSize:13, marginBottom:20 }}>Book your first adventure today!</p>
                 <button onClick={() => nav('/packages')} style={{ padding:'10px 24px', background:'linear-gradient(135deg,#0d9488,#0f766e)', border:'none', borderRadius:10, color:'#fff', fontSize:13, fontWeight:700, cursor:'pointer', fontFamily:'Plus Jakarta Sans,sans-serif' }}>
                   Explore Destinations →
                 </button>
@@ -351,33 +351,33 @@ export default function Dashboard() {
               <div style={{ overflowX:'auto' }}>
                 <table style={{ width:'100%', borderCollapse:'collapse' }}>
                   <thead>
-                    <tr style={{ background:'rgba(0,0,0,.2)' }}>
+                    <tr style={{ background:'#f9fafb', borderBottom:'1px solid #e5e7eb' }}>
                       {['Destination','Dates','Guests','Total','Status'].map(h => (
-                        <th key={h} style={{ textAlign:'left', padding:'10px 16px', fontSize:10, color:'#475569', letterSpacing:1, fontWeight:600, textTransform:'uppercase', fontFamily:'Plus Jakarta Sans,sans-serif', whiteSpace:'nowrap' }}>{h}</th>
+                        <th key={h} style={{ textAlign:'left', padding:'10px 16px', fontSize:10, color:'#6b7280', letterSpacing:1, fontWeight:600, textTransform:'uppercase', fontFamily:'Plus Jakarta Sans,sans-serif', whiteSpace:'nowrap' }}>{h}</th>
                       ))}
                     </tr>
                   </thead>
                   <tbody>
                     {bookings.slice(0,8).map((b,i) => (
-                      <tr key={b.id} className="booking-row" style={{ borderBottom:'1px solid rgba(255,255,255,.03)', transition:'background .15s', cursor:'default' }}>
+                      <tr key={b.id} className="booking-row" style={{ borderBottom:'1px solid #e5e7eb', transition:'background .15s', cursor:'default' }}>
                         <td style={{ padding:'14px 16px' }}>
                           <div style={{ display:'flex', alignItems:'center', gap:10 }}>
                             <div style={{ width:34, height:34, borderRadius:9, background:'rgba(13,148,136,.12)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:16, flexShrink:0 }}>
                               {b.destination_emoji || '🌍'}
                             </div>
                             <div>
-                              <div style={{ fontWeight:600, fontSize:13 }}>{b.destination_name || '—'}</div>
-                              <div style={{ fontSize:10, color:'#475569', fontFamily:'monospace' }}>{b.reference}</div>
+                              <div style={{ fontWeight:600, fontSize:13, color:'#111827' }}>{b.destination_name || '—'}</div>
+                              <div style={{ fontSize:10, color:'#6b7280', fontFamily:'monospace' }}>{b.reference}</div>
                             </div>
                           </div>
                         </td>
                         <td style={{ padding:'14px 16px' }}>
-                          <div style={{ fontSize:12, color:'#94a3b8' }}>
+                          <div style={{ fontSize:12, color:'#6b7280' }}>
                             {b.check_in ? new Date(b.check_in).toLocaleDateString('en',{day:'numeric',month:'short'}) : '—'}
                             {b.check_out && <> → {new Date(b.check_out).toLocaleDateString('en',{day:'numeric',month:'short'})}</>}
                           </div>
                         </td>
-                        <td style={{ padding:'14px 16px', fontSize:13, color:'#94a3b8', textAlign:'center' }}>{b.guests || '—'}</td>
+                        <td style={{ padding:'14px 16px', fontSize:13, color:'#6b7280', textAlign:'center' }}>{b.guests || '—'}</td>
                         <td style={{ padding:'14px 16px' }}>
                           <div style={{ fontWeight:700, fontSize:13, color:'#fbbf24' }}>{kes(b.total_amount)}</div>
                         </td>
@@ -406,11 +406,11 @@ export default function Dashboard() {
                   { label:'AI Travel Chat',    icon:'🤖', path:'/chat',      color:'#f43f5e' },
                 ].map(a => (
                   <button key={a.label} className="quick-btn" onClick={() => nav(a.path)} style={{
-                    display:'flex', alignItems:'center', gap:12, padding:'12px 14px', background:'rgba(255,255,255,.03)', border:'1px solid rgba(255,255,255,.07)', borderRadius:11, cursor:'pointer', transition:'all .2s', fontFamily:'Plus Jakarta Sans,sans-serif', width:'100%', textAlign:'left',
+                    display:'flex', alignItems:'center', gap:12, padding:'12px 14px', background:'#ffffff', border:'1px solid #e5e7eb', borderRadius:11, cursor:'pointer', transition:'all .2s', fontFamily:'Plus Jakarta Sans,sans-serif', width:'100%', textAlign:'left',
                   }}>
                     <div style={{ width:34, height:34, borderRadius:9, background:`${a.color}18`, display:'flex', alignItems:'center', justifyContent:'center', fontSize:16, flexShrink:0 }}>{a.icon}</div>
-                    <span style={{ fontSize:13, fontWeight:600, color:'#e2e8f0' }}>{a.label}</span>
-                    <ChevronRight size={14} color="#334155" style={{ marginLeft:'auto' }}/>
+                    <span style={{ fontSize:13, fontWeight:600, color:'#374151' }}>{a.label}</span>
+                    <ChevronRight size={14} color="#6b7280" style={{ marginLeft:'auto' }}/>
                   </button>
                 ))}
               </div>
@@ -419,9 +419,9 @@ export default function Dashboard() {
             {/* Destinations visited */}
             <div className="dash-card" style={{ padding:20 }}>
               <div style={{ fontFamily:'Syne,sans-serif', fontSize:14, fontWeight:700, marginBottom:4 }}>Places Visited</div>
-              <div style={{ fontSize:11, color:'#475569', marginBottom:12 }}>{uniqueDests.length} destination{uniqueDests.length!==1?'s':''} explored</div>
+              <div style={{ fontSize:11, color:'#6b7280', marginBottom:12 }}>{uniqueDests.length} destination{uniqueDests.length!==1?'s':''} explored</div>
               {uniqueDests.length === 0 ? (
-                <div style={{ textAlign:'center', padding:'20px 0', color:'#334155', fontSize:12 }}>
+                <div style={{ textAlign:'center', padding:'20px 0', color:'#6b7280', fontSize:12 }}>
                   <div style={{ fontSize:30, marginBottom:8 }}>🗺️</div>No destinations yet
                 </div>
               ) : (
@@ -442,7 +442,7 @@ export default function Dashboard() {
           <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:18 }}>
             <div>
               <div style={{ fontFamily:'Syne,sans-serif', fontSize:16, fontWeight:700, marginBottom:2 }}>Discover Next</div>
-              <div style={{ fontSize:12, color:'#475569' }}>Top destinations to explore</div>
+              <div style={{ fontSize:12, color:'#6b7280' }}>Top destinations to explore</div>
             </div>
             <button onClick={() => nav('/packages')} style={{ display:'inline-flex', alignItems:'center', gap:5, padding:'7px 14px', background:'rgba(13,148,136,.08)', border:'1px solid rgba(13,148,136,.2)', borderRadius:8, color:'#2dd4bf', fontSize:12, fontWeight:600, cursor:'pointer', fontFamily:'Plus Jakarta Sans,sans-serif' }}>
               View all <ChevronRight size={12}/>
@@ -460,13 +460,13 @@ export default function Dashboard() {
                     <Star size={9} fill="#f59e0b" color="#f59e0b"/> {d.rating}
                   </div>
                   <div style={{ position:'absolute', bottom:8, left:10 }}>
-                    <div style={{ fontWeight:700, fontSize:13 }}>{d.emoji} {d.name}</div>
-                    <div style={{ fontSize:10, color:'rgba(255,255,255,.5)', display:'flex', alignItems:'center', gap:3 }}><MapPin size={8}/>{d.country}</div>
+                    <div style={{ fontWeight:700, fontSize:13, color:'#f8fafc', textShadow:'0 1px 3px rgba(0,0,0,.6)' }}>{d.emoji} {d.name}</div>
+                    <div style={{ fontSize:10, color:'rgba(248,250,252,.85)', display:'flex', alignItems:'center', gap:3 }}><MapPin size={8}/>{d.country}</div>
                   </div>
                 </div>
-                <div style={{ padding:'10px 12px', background:'rgba(13,20,40,.8)' }}>
+                <div style={{ padding:'10px 12px', background:'#ffffff', borderTop:'1px solid #e5e7eb' }}>
                   <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
-                    <span style={{ fontSize:10, color:'#475569', fontWeight:500 }}>From</span>
+                    <span style={{ fontSize:10, color:'#6b7280', fontWeight:500 }}>From</span>
                     <span style={{ fontSize:13, fontWeight:800, background:'linear-gradient(135deg,#f59e0b,#fbbf24)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent' }}>{kes(d.base_price)}</span>
                   </div>
                 </div>

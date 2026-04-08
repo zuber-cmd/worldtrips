@@ -93,7 +93,7 @@ export function LoginPage() {
   };
 
   return (
-    <AuthLayout title="Welcome back" link={<>Don't have an account? <Link to="/signup" style={{ color:'#a78bfa', fontWeight:600 }}>Sign up free →</Link></>}>
+    <AuthLayout title="Welcome back" link={<>Don't have an account? <Link to="/signup" style={{ color:'#6d28d9', fontWeight:600 }}>Sign up free →</Link></>}>
       <h1 className="serif" style={{ fontSize:32, fontWeight:600, marginBottom:6 }}>Welcome back</h1>
       <p style={{ color:'var(--muted)', fontSize:14, marginBottom:28 }}>Sign in to continue your journey</p>
 
@@ -140,7 +140,7 @@ export function SignupPage() {
   };
 
   return (
-    <AuthLayout link={<>Already have an account? <Link to="/login" style={{ color:'#a78bfa', fontWeight:600 }}>Sign in →</Link></>}>
+    <AuthLayout link={<>Already have an account? <Link to="/login" style={{ color:'#6d28d9', fontWeight:600 }}>Sign in →</Link></>}>
       <h1 className="serif" style={{ fontSize:32, fontWeight:600, marginBottom:6 }}>Create account</h1>
       <p style={{ color:'var(--muted)', fontSize:14, marginBottom:28 }}>Start your travel journey today</p>
 

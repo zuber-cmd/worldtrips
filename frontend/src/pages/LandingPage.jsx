@@ -281,7 +281,7 @@ function IntroVideo({ onFinish }) {
         {/* Logo */}
         <div style={{animation:'sp-in .65s ease both',textAlign:'center',marginBottom:32}}>
           <div style={{fontSize:48,fontWeight:900,color:'#c9a84c',fontFamily:"'Outfit',sans-serif",marginBottom:14,display:'inline-block',animation:'sp-float 2.8s ease-in-out infinite',filter:'drop-shadow(0 0 24px #c9a84c88)',letterSpacing:2}}>WT</div>
-          <div style={{fontSize:38,fontWeight:700,color:'#f5eed9',fontFamily:"'Playfair Display',serif",lineHeight:1}}>
+          <div style={{fontSize:38,fontWeight:700,color:'#111827',fontFamily:"'Playfair Display',serif",lineHeight:1}}>
             World<span style={{background:'linear-gradient(135deg,#c9a84c,#ecd980)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>Trips</span>
           </div>
           <div style={{fontSize:10,color:'rgba(201,168,76,.5)',letterSpacing:5,marginTop:8}}>TRAVEL AGENCY</div>
@@ -334,6 +334,7 @@ function IntroVideo({ onFinish }) {
 
   // ── PLAYING ─────────────────────────────────────────────────
   const cur = PHASES[phase];
+  const isDarkPhase = phase === PHASES.length - 1;
   const bg  = `radial-gradient(ellipse at 30% 30%,${cur.accent}20 0%,transparent 55%),
     radial-gradient(ellipse at 75% 75%,${cur.accent}0e 0%,transparent 50%),
     linear-gradient(160deg,${cur.bg[0]} 0%,${cur.bg[1]} 50%,${cur.bg[2]} 100%)`;
@@ -370,8 +371,8 @@ function IntroVideo({ onFinish }) {
       <div style={{position:'absolute',top:26,left:'50%',transform:'translateX(-50%)',display:'flex',alignItems:'center',gap:11,zIndex:10}}>
         <div style={{width:42,height:42,borderRadius:11,background:'linear-gradient(135deg,#c9a84c,#9d7c2e)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:13,fontWeight:900,color:'#07101e',fontFamily:"'Outfit',sans-serif",letterSpacing:1,boxShadow:`0 0 22px ${cur.accent}70,0 4px 12px rgba(0,0,0,.5)`,transition:'box-shadow .8s ease'}}>WT</div>
         <div>
-          <div style={{fontSize:19,fontWeight:700,color:'#f5eed9',fontFamily:"'Playfair Display',serif",letterSpacing:-.4}}>World<span style={{background:'linear-gradient(135deg,#c9a84c,#e8c97a)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>Trips</span></div>
-          <div style={{fontSize:8,color:'rgba(201,168,76,.5)',letterSpacing:3}}>TRAVEL AGENCY</div>
+          <div style={{fontSize:19,fontWeight:700,color:isDarkPhase?'#f8fafc':'#111827',fontFamily:"'Playfair Display',serif",letterSpacing:-.4}}>World<span style={{background:'linear-gradient(135deg,#c9a84c,#e8c97a)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>Trips</span></div>
+          <div style={{fontSize:8,color:isDarkPhase?'rgba(248,250,252,.65)':'rgba(55,65,81,.75)',letterSpacing:3}}>TRAVEL AGENCY</div>
         </div>
       </div>
 
@@ -409,7 +410,7 @@ function IntroVideo({ onFinish }) {
         </div>
 
         {/* Title */}
-        <h1 key={'t-'+phase} className="pt-in" style={{fontSize:'clamp(26px,5.5vw,56px)',fontWeight:700,color:'#f5eed9',fontFamily:"'Playfair Display',serif",lineHeight:1.1,marginBottom:12,textShadow:`0 0 70px ${cur.accent}55`}}>
+        <h1 key={'t-'+phase} className="pt-in" style={{fontSize:'clamp(26px,5.5vw,56px)',fontWeight:700,color:isDarkPhase?'#f8fafc':'#111827',fontFamily:"'Playfair Display',serif",lineHeight:1.1,marginBottom:12,textShadow:isDarkPhase?`0 0 70px ${cur.accent}55`:'none'}}>
           {cur.title}
         </h1>
 
@@ -419,7 +420,7 @@ function IntroVideo({ onFinish }) {
         </div>
 
         {/* Description */}
-        <p key={'d-'+phase} className="pt-in" style={{fontSize:'clamp(12px,1.8vw,15.5px)',color:'rgba(245,238,217,.55)',lineHeight:1.85,maxWidth:500,margin:'0 auto 22px',animationDelay:'.2s'}}>
+        <p key={'d-'+phase} className="pt-in" style={{fontSize:'clamp(12px,1.8vw,15.5px)',color:isDarkPhase?'rgba(248,250,252,.78)':'#6b7280',lineHeight:1.85,maxWidth:500,margin:'0 auto 22px',animationDelay:'.2s'}}>
           {cur.desc}
         </p>
 
@@ -435,7 +436,7 @@ function IntroVideo({ onFinish }) {
         {phase === 1 && (
           <div key="chips" className="pt-in" style={{display:'flex',flexWrap:'wrap',gap:6,justifyContent:'center',animationDelay:'.3s'}}>
             {DESTINATIONS.slice(0,10).map(d=>(
-              <div key={d.name} style={{padding:'4px 12px',borderRadius:20,background:'rgba(255,255,255,.05)',border:`1px solid ${cur.accent}30`,fontSize:11.5,color:'#f5eed9',display:'flex',alignItems:'center',gap:5}}>
+              <div key={d.name} style={{padding:'4px 12px',borderRadius:20,background:'rgba(255,255,255,.75)',border:`1px solid ${cur.accent}35`,fontSize:11.5,color:'#374151',display:'flex',alignItems:'center',gap:5}}>
                 <span style={{fontSize:9,fontWeight:700,color:cur.accent,letterSpacing:1}}>{d.code}</span> {d.name}
               </div>
             ))}
@@ -469,9 +470,9 @@ function IntroVideo({ onFinish }) {
       {/* Skip button */}
       <button
         onClick={() => { dead.current=true; clearInterval(progRef.current); clearTimeout(timer.current); window.speechSynthesis?.cancel(); onFinish(); }}
-        style={{position:'absolute',bottom:20,right:26,background:'rgba(255,255,255,.06)',border:'1px solid rgba(255,255,255,.1)',color:'rgba(245,238,217,.4)',padding:'7px 18px',borderRadius:20,fontSize:12,cursor:'pointer',fontFamily:"'Outfit',sans-serif",transition:'all .2s',backdropFilter:'blur(8px)'}}
-        onMouseEnter={e=>{e.currentTarget.style.background='rgba(255,255,255,.13)';e.currentTarget.style.color='#f5eed9';}}
-        onMouseLeave={e=>{e.currentTarget.style.background='rgba(255,255,255,.06)';e.currentTarget.style.color='rgba(245,238,217,.4)';}}
+        style={{position:'absolute',bottom:20,right:26,background:isDarkPhase?'rgba(255,255,255,.08)':'#ffffff',border:isDarkPhase?'1px solid rgba(255,255,255,.2)':'1px solid #e5e7eb',color:isDarkPhase?'rgba(248,250,252,.85)':'#374151',padding:'7px 18px',borderRadius:20,fontSize:12,cursor:'pointer',fontFamily:"'Outfit',sans-serif",transition:'all .2s',backdropFilter:'blur(8px)',boxShadow:isDarkPhase?'none':'0 1px 3px rgba(0,0,0,.08)'}}
+        onMouseEnter={e=>{e.currentTarget.style.background=isDarkPhase?'rgba(255,255,255,.16)':'#f9fafb';e.currentTarget.style.color=isDarkPhase?'#f8fafc':'#111827';}}
+        onMouseLeave={e=>{e.currentTarget.style.background=isDarkPhase?'rgba(255,255,255,.08)':'#ffffff';e.currentTarget.style.color=isDarkPhase?'rgba(248,250,252,.85)':'#374151';}}
       >
         Skip intro →
       </button>
@@ -508,8 +509,8 @@ export default function LandingPage() {
         @keyframes marquee  { from{transform:translateX(0)} to{transform:translateX(-50%)} }
         @keyframes hero-float { 0%,100%{transform:translateY(0) rotate(-1deg)} 50%{transform:translateY(-18px) rotate(1deg)} }
         .cta-btn:hover   { transform:translateY(-2px); box-shadow:0 8px 28px rgba(201,168,76,.4)!important; }
-        .dest-card:hover { transform:translateY(-4px); border-color:rgba(201,168,76,.35)!important; background:rgba(15,26,50,.95)!important; }
-        .feature-card:hover { border-color:rgba(201,168,76,.22)!important; background:rgba(18,32,60,.8)!important; }
+        .dest-card:hover { transform:translateY(-4px); border-color:rgba(201,168,76,.4)!important; background:#ffffff!important; box-shadow:0 8px 24px rgba(0,0,0,.1)!important; }
+        .feature-card:hover { border-color:rgba(201,168,76,.35)!important; background:#fafafa!important; box-shadow:0 4px 12px rgba(0,0,0,.06)!important; }
       `}</style>
 
       {/* ── Hero ─────────────────────────────────────────────── */}
@@ -527,19 +528,19 @@ export default function LandingPage() {
             <div style={{display:'inline-flex',alignItems:'center',gap:8,padding:'7px 16px',borderRadius:20,background:'rgba(201,168,76,.1)',border:'1px solid rgba(201,168,76,.22)',fontSize:12,color:'rgba(201,168,76,.9)',marginBottom:26,letterSpacing:.5}}>
               ✦ &nbsp; Kenya's #1 Travel Platform
             </div>
-            <h1 style={{fontSize:'clamp(36px,5vw,70px)',fontFamily:"'Playfair Display',serif",fontWeight:700,lineHeight:1.08,marginBottom:22,color:'#f5eed9'}}>
+            <h1 style={{fontSize:'clamp(36px,5vw,70px)',fontFamily:"'Playfair Display',serif",fontWeight:700,lineHeight:1.08,marginBottom:22,color:'#111827'}}>
               Discover the<br/>
               <span style={{background:'linear-gradient(135deg,#c9a84c,#e8c97a,#c9a84c)',backgroundSize:'200%',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',animation:'shimmer 3.5s linear infinite'}}>World's Best</span><br/>
               Destinations
             </h1>
-            <p style={{fontSize:16,color:'rgba(245,238,217,.55)',lineHeight:1.85,marginBottom:36,maxWidth:460}}>
+            <p style={{fontSize:16,color:'#6b7280',lineHeight:1.85,marginBottom:36,maxWidth:460}}>
               Book your dream trip across 15 hand-picked global destinations. All prices in Kenya Shillings. Hotels, activities and AI travel planning in one place.
             </p>
             <div style={{display:'flex',gap:12,flexWrap:'wrap',marginBottom:48}}>
               <button onClick={()=>nav('/signup')} className="cta-btn" style={{padding:'14px 34px',borderRadius:10,background:'linear-gradient(135deg,#c9a84c,#e8c97a)',border:'none',color:'#07101e',fontSize:15,fontWeight:700,cursor:'pointer',fontFamily:"'Outfit',sans-serif",transition:'all .3s',display:'flex',alignItems:'center',gap:8}}>
                 Start Exploring →
               </button>
-              <button onClick={()=>nav('/login')} style={{padding:'14px 28px',borderRadius:10,background:'rgba(255,255,255,.05)',border:'1px solid rgba(255,255,255,.12)',color:'#f5eed9',fontSize:15,fontWeight:500,cursor:'pointer',fontFamily:"'Outfit',sans-serif",transition:'all .2s'}}>
+              <button onClick={()=>nav('/login')} style={{padding:'14px 28px',borderRadius:10,background:'#ffffff',border:'1px solid #e5e7eb',color:'#374151',fontSize:15,fontWeight:600,cursor:'pointer',fontFamily:"'Outfit',sans-serif",transition:'all .2s',boxShadow:'0 1px 3px rgba(0,0,0,.08)'}}>
                 Sign In →
               </button>
             </div>
@@ -547,7 +548,7 @@ export default function LandingPage() {
               {[['15','Destinations'],['KES','Pricing'],['24/7','AI Support'],['2','Click Booking']].map(([n,l])=>(
                 <div key={l}>
                   <div style={{fontSize:26,fontWeight:700,color:'#c9a84c',fontFamily:"'Playfair Display',serif"}}>{n}</div>
-                  <div style={{fontSize:12,color:'rgba(245,238,217,.4)',marginTop:2}}>{l}</div>
+                  <div style={{fontSize:12,color:'#6b7280',marginTop:2}}>{l}</div>
                 </div>
               ))}
             </div>
@@ -557,15 +558,16 @@ export default function LandingPage() {
           <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,maxHeight:480,overflow:'hidden'}}>
             {DESTINATIONS.slice(0,6).map((d,i)=>(
               <div key={d.name} style={{
-                borderRadius:14, border:'1px solid rgba(201,168,76,.1)',
-                background:'rgba(12,20,44,.7)', backdropFilter:'blur(12px)',
+                borderRadius:14, border:'1px solid #e5e7eb',
+                background:'#ffffff', backdropFilter:'blur(12px)',
                 padding:20, cursor:'pointer', transition:'all .3s',
                 animation:`hero-float ${4+i*.4}s ease-in-out infinite`,
                 animationDelay:(i*.5)+'s',
+                boxShadow:'0 1px 3px rgba(0,0,0,.08)',
               }} onClick={()=>nav('/signup')}>
                 <div style={{width:44,height:44,borderRadius:10,background:`${d.color}22`,border:`1px solid ${d.color}44`,display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:800,color:d.color,letterSpacing:1,marginBottom:10}}>{d.code}</div>
-                <div style={{fontWeight:600,fontSize:14,marginBottom:3}}>{d.name}</div>
-                <div style={{fontSize:11,color:'rgba(245,238,217,.35)',marginBottom:10}}>{d.country}</div>
+                <div style={{fontWeight:600,fontSize:14,marginBottom:3,color:'#111827'}}>{d.name}</div>
+                <div style={{fontSize:11,color:'#6b7280',marginBottom:10}}>{d.country}</div>
                 <div style={{fontSize:12,color:d.color,fontWeight:600}}>KES {d.price}</div>
               </div>
             ))}
@@ -588,37 +590,37 @@ export default function LandingPage() {
       <div style={{maxWidth:1200,margin:'0 auto',padding:'100px 24px'}}>
         <div style={{textAlign:'center',marginBottom:56}}>
           <div style={{fontSize:10,letterSpacing:4,color:'rgba(201,168,76,.6)',marginBottom:14,textTransform:'uppercase'}}>Everything you need</div>
-          <h2 style={{fontSize:'clamp(26px,4vw,46px)',fontFamily:"'Playfair Display',serif",fontWeight:500,marginBottom:14}}>
+            <h2 style={{fontSize:'clamp(26px,4vw,46px)',fontFamily:"'Playfair Display',serif",fontWeight:500,marginBottom:14,color:'#111827'}}>
             Built for <span style={{background:'linear-gradient(135deg,#c9a84c,#e8c97a)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>Kenyan Travellers</span>
           </h2>
-          <p style={{color:'rgba(245,238,217,.45)',fontSize:15,maxWidth:480,margin:'0 auto'}}>A complete travel booking platform designed with your needs in mind</p>
+          <p style={{color:'#6b7280',fontSize:15,maxWidth:480,margin:'0 auto'}}>A complete travel booking platform designed with your needs in mind</p>
         </div>
         <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(290px,1fr))',gap:18}}>
           {FEATURES.map((f,i)=>(
-            <div key={f.title} className="feature-card" style={{padding:26,borderRadius:14,background:'rgba(12,24,48,.6)',border:'1px solid rgba(201,168,76,.1)',transition:'all .3s',cursor:'default'}}>
+            <div key={f.title} className="feature-card" style={{padding:26,borderRadius:14,background:'#ffffff',border:'1px solid #e5e7eb',transition:'all .3s',cursor:'default',boxShadow:'0 1px 3px rgba(0,0,0,.08)'}}>
               <div style={{fontSize: f.icon.length > 1 ? 20 : 30, fontWeight:800, color:'#c9a84c', fontFamily:"'Outfit',sans-serif", letterSpacing: f.icon === 'AI' ? 2 : 0, marginBottom:14, lineHeight:1}}>{f.icon}</div>
-              <div style={{fontSize:15,fontWeight:600,marginBottom:8,color:'#f5eed9'}}>{f.title}</div>
-              <div style={{fontSize:13,color:'rgba(245,238,217,.45)',lineHeight:1.7}}>{f.desc}</div>
+              <div style={{fontSize:15,fontWeight:600,marginBottom:8,color:'#111827'}}>{f.title}</div>
+              <div style={{fontSize:13,color:'#6b7280',lineHeight:1.7}}>{f.desc}</div>
             </div>
           ))}
         </div>
       </div>
 
       {/* ── Destinations Grid ────────────────────────────────── */}
-      <div style={{background:'rgba(12,24,48,.4)',padding:'80px 0',borderTop:'1px solid rgba(201,168,76,.06)',borderBottom:'1px solid rgba(201,168,76,.06)'}}>
+      <div style={{background:'#f3f4f6',padding:'80px 0',borderTop:'1px solid #e5e7eb',borderBottom:'1px solid #e5e7eb'}}>
         <div style={{maxWidth:1200,margin:'0 auto',padding:'0 24px'}}>
           <div style={{textAlign:'center',marginBottom:46}}>
             <div style={{fontSize:10,letterSpacing:4,color:'rgba(201,168,76,.6)',marginBottom:12,textTransform:'uppercase'}}>EXPLORE</div>
-            <h2 style={{fontSize:'clamp(24px,4vw,42px)',fontFamily:"'Playfair Display',serif",fontWeight:500}}>
+            <h2 style={{fontSize:'clamp(24px,4vw,42px)',fontFamily:"'Playfair Display',serif",fontWeight:500,color:'#111827'}}>
               15 Amazing <span style={{background:'linear-gradient(135deg,#c9a84c,#e8c97a)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>Destinations</span>
             </h2>
           </div>
           <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(185px,1fr))',gap:13}}>
             {DESTINATIONS.map(d=>(
-              <div key={d.name} className="dest-card" onClick={()=>nav('/signup')} style={{padding:'18px 16px',borderRadius:12,cursor:'pointer',background:'rgba(7,16,30,.8)',border:'1px solid rgba(201,168,76,.1)',transition:'all .3s'}}>
+              <div key={d.name} className="dest-card" onClick={()=>nav('/signup')} style={{padding:'18px 16px',borderRadius:12,cursor:'pointer',background:'#ffffff',border:'1px solid #e5e7eb',transition:'all .3s',boxShadow:'0 1px 3px rgba(0,0,0,.06)'}}>
                 <div style={{width:38,height:38,borderRadius:8,background:`${d.color}18`,border:`1px solid ${d.color}38`,display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,fontWeight:800,color:d.color,letterSpacing:.8,marginBottom:9}}>{d.code}</div>
-                <div style={{fontWeight:600,fontSize:13.5,marginBottom:3}}>{d.name}</div>
-                <div style={{fontSize:10.5,color:'rgba(245,238,217,.35)',marginBottom:9}}>{d.country}</div>
+                <div style={{fontWeight:600,fontSize:13.5,marginBottom:3,color:'#111827'}}>{d.name}</div>
+                <div style={{fontSize:10.5,color:'#6b7280',marginBottom:9}}>{d.country}</div>
                 <div style={{fontSize:12,color:'#c9a84c',fontWeight:600}}>From KES {d.price}</div>
               </div>
             ))}
@@ -632,17 +634,17 @@ export default function LandingPage() {
           <div style={{position:'absolute',inset:0,backgroundImage:'linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px)',backgroundSize:'30px 30px'}}/>
           <div style={{position:'relative',zIndex:1}}>
             <div style={{fontSize:13,letterSpacing:4,color:'rgba(201,168,76,.5)',textTransform:'uppercase',fontWeight:600,marginBottom:20}}>WorldTrips</div>
-            <h2 style={{fontSize:'clamp(26px,4vw,50px)',fontFamily:"'Playfair Display',serif",fontWeight:600,marginBottom:14}}>
+            <h2 style={{fontSize:'clamp(26px,4vw,50px)',fontFamily:"'Playfair Display',serif",fontWeight:600,marginBottom:14,color:'#111827'}}>
               Ready to Explore the World?
             </h2>
-            <p style={{fontSize:16,color:'rgba(245,238,217,.5)',marginBottom:36,maxWidth:460,margin:'0 auto 36px'}}>
+            <p style={{fontSize:16,color:'#6b7280',marginBottom:36,maxWidth:460,margin:'0 auto 36px'}}>
               Join thousands of Kenyan travellers who have discovered the world with WorldTrips. Sign up free today.
             </p>
             <div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap'}}>
               <button onClick={()=>nav('/signup')} className="cta-btn" style={{padding:'15px 42px',borderRadius:10,background:'linear-gradient(135deg,#c9a84c,#e8c97a)',border:'none',color:'#07101e',fontSize:16,fontWeight:700,cursor:'pointer',fontFamily:"'Outfit',sans-serif",transition:'all .3s'}}>
                 Create Free Account →
               </button>
-              <button onClick={()=>nav('/login')} style={{padding:'15px 32px',borderRadius:10,background:'rgba(255,255,255,.06)',border:'1px solid rgba(255,255,255,.14)',color:'#f5eed9',fontSize:15,fontWeight:500,cursor:'pointer',fontFamily:"'Outfit',sans-serif",transition:'all .2s'}}>
+              <button onClick={()=>nav('/login')} style={{padding:'15px 32px',borderRadius:10,background:'#ffffff',border:'1px solid #e5e7eb',color:'#374151',fontSize:15,fontWeight:600,cursor:'pointer',fontFamily:"'Outfit',sans-serif",transition:'all .2s',boxShadow:'0 1px 3px rgba(0,0,0,.08)'}}>
                 I have an account
               </button>
             </div>
@@ -655,7 +657,7 @@ export default function LandingPage() {
         <div style={{fontSize:16,fontWeight:700,fontFamily:"'Playfair Display',serif",marginBottom:8}}>
           World<span style={{background:'linear-gradient(135deg,#c9a84c,#e8c97a)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>Trips</span>
         </div>
-        <div style={{fontSize:12,color:'rgba(245,238,217,.28)'}}>© 2026 WorldTrips Travel Agency · Nairobi, Kenya · All prices in KES</div>
+        <div style={{fontSize:12,color:'#6b7280'}}>© 2026 WorldTrips Travel Agency · Nairobi, Kenya · All prices in KES</div>
       </div>
     </div>
   );

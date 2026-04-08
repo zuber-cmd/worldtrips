@@ -143,9 +143,9 @@ export default function BookingPage() {
                         <DestImg dest={d}/>
                         <div className="img-overlay" style={{ position:'absolute', inset:0 }}/>
                         {dest?.id===d.id && <div style={{ position:'absolute', top:6, right:6, background:'linear-gradient(135deg,#7c3aed,#6d28d9)', borderRadius:'50%', width:22, height:22, display:'flex', alignItems:'center', justifyContent:'center', boxShadow:'0 2px 8px rgba(124,58,237,.5)' }}><Check size={12} color="#fff"/></div>}
-                        <div style={{ position:'absolute', bottom:6, left:10 }}>
+                        <div style={{ position:'absolute', bottom:6, left:10, right:8, color:'#fff', textShadow:'0 1px 4px rgba(0,0,0,.85)' }}>
                           <div style={{ fontSize:12, fontWeight:700 }}>{d.name}</div>
-                          <div style={{ fontSize:10, color:'#fbbf24', fontWeight:600 }}>{kes(d.base_price)}</div>
+                          <div style={{ fontSize:10, color:'#fde68a', fontWeight:600 }}>{kes(d.base_price)}</div>
                         </div>
                       </div>
                     </div>
